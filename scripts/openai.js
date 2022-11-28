@@ -19,9 +19,7 @@ async function getGPT3Summary(transcript) {
       body: JSON.stringify({
         model: settings.model,
         prompt:
-          'Prepare a few summary keypoints based on the following excerpt from a video:\n' +
-          transcript +
-          '\n summary keypoints:',
+          settings.prePrompt + '\n' + transcript + '\n' + settings.postPrompt,
         max_tokens: parseInt(settings.maxTokens),
         temperature: parseFloat(settings.temperature),
         presence_penalty: parseFloat(settings.presencePenalty),
