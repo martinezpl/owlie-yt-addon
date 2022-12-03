@@ -1,6 +1,6 @@
 //** Fetches HTML from Youtube video's URL and parses out available transcripts. */
 async function getAvailableTranscripts(html) {
-  console.log('getAvailableTranscript');
+  Logger.debug('getAvailableTranscript');
   const splitHtml = html.split('"captions":');
   if (splitHtml.length <= 1) {
     if (html.includes('class="g-recaptcha"')) {
@@ -8,6 +8,7 @@ async function getAvailableTranscripts(html) {
     } else if (!html.includes('"playabilityStatus":')) {
       throw Error('Video unavailable!');
     }
+    throw Error('Transcription unavailable!');
   }
 
   const captionsJson = JSON.parse(
@@ -27,7 +28,7 @@ async function getAvailableTranscripts(html) {
 
 //** Selects English transcript (prioritizing manually written over automatic), GETs transcript's XML, returns parsed text */
 async function fetchEnglishTranscript(captionsJson) {
-  console.log('fetchEnglishTranscript');
+  Logger.debug('fetchEnglishTranscript');
   let captions = captionsJson.captionTracks;
   let selectedCaption = null;
 

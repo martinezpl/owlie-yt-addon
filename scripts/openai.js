@@ -1,11 +1,11 @@
 async function getGPT3Summary(transcript) {
-  console.log('getGPT3Summary');
-  console.log(transcript);
+  Logger.debug('getGPT3Summary');
   const apiKey = (await browser.storage.local.get('openAiApiKey')).openAiApiKey;
   const settings = (await browser.storage.local.get('gpt3-settings'))[
     'gpt3-settings'
   ];
-  console.log(settings);
+  Logger.debug(settings);
+  Logger.info(transcript);
   let js = await (
     await fetch('https://api.openai.com/v1/completions', {
       method: 'POST',
@@ -27,9 +27,51 @@ async function getGPT3Summary(transcript) {
       }),
     })
   ).json();
+  Logger.info(js);
   if (js.error) {
-    return 'Error: ' + js.error.message;
+    throw Error(js.error.message);
   }
   let summary = js.choices[0].text;
   return summary;
+}
+
+async function getGPT3Answer(transcript, question) {
+  Logger.debug('getGPT3Answer');
+  const apiKey = (await browser.storage.local.get('openAiApiKey')).openAiApiKey;
+  const settings = (await browser.storage.local.get('gpt3-settings'))[
+    'gpt3-settings'
+  ];
+  Logger.debug(settings);
+  Logger.info(transcript);
+
+  let js = await (
+    await fetch('https://api.openai.com/v1/completions', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: settings.model,
+        prompt:
+          transcript +
+          '\n' +
+          'Based on the above, answer this question: ' +
+          question,
+        max_tokens: parseInt(settings.maxTokens),
+        temperature: 0.25,
+        presence_penalty: -0.5,
+        frequency_penalty: 1,
+      }),
+    })
+  ).json();
+  Logger.info(js);
+  if (js.error) {
+    throw Error(js.error.message);
+  }
+  let answer = js.choices[0].text;
+  return answer;
 }

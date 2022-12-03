@@ -7,57 +7,113 @@
   <body>
     <img class="owlie" src="../icons/icon-1.png" />
     <text class="txt">Hey, guy! Are you spoko?</text>
-    <div class="settingsBox">
-      <div class="columnContainer">
-        <div class="column" id="parameterNames">
-          <p class="parameterName">Model</p>
-          <p class="parameterName">Max Tokens</p>
-          <p class="parameterName">Temperature</p>
-          <p class="parameterName">Presence Penalty</p>
-          <p class="parameterName">Frequency Penalty</p>
+
+    <div id="settingsBox" class="settingsBox">
+      <div id="summarySettings" class="settingsTab">
+        <div class="columnContainer">
+          <div class="column" id="parameterNames">
+            <p class="parameterName">Model</p>
+            <p class="parameterName">Max Tokens</p>
+            <p class="parameterName">Temperature</p>
+            <p class="parameterName">Presence Penalty</p>
+            <p class="parameterName">Frequency Penalty</p>
+          </div>
+          <div class="column" id="parameterValues">
+            <p class="setting" id="summarySettings-model">
+              <select name="model" id="model">
+                <option selected value="text-ada-001">Ada</option>
+                <option value="text-babbage-001">Babbage</option>
+                <option value="text-curie-001">Curie</option>
+                <option value="text-davinci-002">Davinci</option>
+                <option value="text-davinci-003">Davinci-003</option>
+              </select>
+            </p>
+            <p class="setting" id="summarySettings-maxTokens">
+              <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="100" step="1">
+            </p>
+            <p class="setting" id="summarySettings-temperature">
+              <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
+            </p>
+            <p class="setting" id="summarySettings-presencePenalty">
+              <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
+            </p>
+            <p class="setting" id="summarySettings-frequencyPenalty">
+              <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
+            </p>
+          </div>
+          <div class="column" id="parameterValueDisplays">
+            <p class="parameterValueDisplay">‎ ‎</p>
+            <p class="parameterValueDisplay" id="maxTokensDisplayedValue">100</p>
+            <p class="parameterValueDisplay" id="temperatureDisplayedValue">0.1</p>
+            <p class="parameterValueDisplay" id="presencePenaltyDisplayedValue">-0.5</p>
+            <p class="parameterValueDisplay" id="frequencyPenaltyDisplayedValue">1</p>
+          </div>
         </div>
-        <div class="column" id="parameterValues">
-          <p class="setting" id="gpt3Settings-model">
-            <select name="model" id="model">
-              <option selected value="text-ada-001">Ada</option>
-              <option value="text-babbage-001">Babbage</option>
-              <option value="text-curie-001">Curie</option>
-              <option value="text-davinci-002">Davinci</option>
-            </select>
-          </p>
-          <p class="setting" id="gpt3Settings-maxTokens">
-            <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="100" step="1">
-          </p>
-          <p class="setting" id="gpt3Settings-temperature">
-            <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
-          </p>
-          <p class="setting" id="gpt3Settings-presencePenalty">
-            <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
-          </p>
-          <p class="setting" id="gpt3Settings-frequencyPenalty">
-            <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
-          </p>
-        </div>
-        <div class="column" id="parameterValueDisplays">
-          <p class="parameterValueDisplay">‎ ‎</p>
-          <p class="parameterValueDisplay" id="maxTokensDisplayedValue">100</p>
-          <p class="parameterValueDisplay" id="temperatureDisplayedValue">0.1</p>
-          <p class="parameterValueDisplay" id="presencePenaltyDisplayedValue">-0.5</p>
-          <p class="parameterValueDisplay" id="frequencyPenaltyDisplayedValue">1</p>
+        <div class="promptSection">
+          <p class="parameterName">Prompts:</p>
+          <div class="setting" id="summarySettings-prePrompt">
+            <input type="text" placeholder="Before transcript" class="promptInput" id="prePrompt"></input>
+          </div>
+          <div class="setting" id="summarySettings-postPrompt">
+            <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt"></input>
+          </div>
         </div>
       </div>
-      <div class="promptSection">
-        <p class="parameterName">Prompts:</p>
-        <div class="setting" id="gpt3Settings-prePrompt">
-          <input type="text" placeholder="Before transcript" class="promptInput" id="prePrompt"></input>
+
+      <div id="interactiveSettings" class="settingsTab">
+        <div class="columnContainer">
+          <div class="column" id="parameterNames">
+            <p class="parameterName">Model</p>
+            <p class="parameterName">Max Tokens</p>
+            <p class="parameterName">Temperature</p>
+            <p class="parameterName">Presence Penalty</p>
+            <p class="parameterName">Frequency Penalty</p>
+          </div>
+          <div class="column" id="parameterValues">
+            <p class="setting" id="interactiveSettings-model">
+              <select name="model" id="model">
+                <option selected value="text-ada-001">Ada</option>
+                <option value="text-babbage-001">Babbage</option>
+                <option value="text-curie-001">Curie</option>
+                <option value="text-davinci-002">Davinci</option>
+                <option value="text-davinci-003">Davinci-003</option>
+              </select>
+            </p>
+            <p class="setting" id="interactiveSettings-maxTokens">
+              <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="100" step="1">
+            </p>
+            <p class="setting" id="interactiveSettings-temperature">
+              <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
+            </p>
+            <p class="setting" id="interactiveSettings-presencePenalty">
+              <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
+            </p>
+            <p class="setting" id="interactiveSettings-frequencyPenalty">
+              <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
+            </p>
+          </div>
+          <div class="column" id="parameterValueDisplays">
+            <p class="parameterValueDisplay">‎ ‎</p>
+            <p class="parameterValueDisplay" id="maxTokensDisplayedValue">100</p>
+            <p class="parameterValueDisplay" id="temperatureDisplayedValue">0.1</p>
+            <p class="parameterValueDisplay" id="presencePenaltyDisplayedValue">-0.5</p>
+            <p class="parameterValueDisplay" id="frequencyPenaltyDisplayedValue">1</p>
+          </div>
         </div>
-        <div class="setting" id="gpt3Settings-postPrompt">
-          <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt"></input>
+        <div class="promptSection">
+          <p class="parameterName">Prompts:</p>
+          <div class="setting" id="interactiveSettings-prePrompt">
+            <input type="text" placeholder="Before transcript" class="promptInput" id="prePrompt"></input>
+          </div>
+          <div class="setting" id="interactiveSettings-postPrompt">
+            <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt"></input>
+          </div>
         </div>
       </div>
     </div>
+
     <input type="input" class="keyInput" id="openAiApiKey" name="OpenAI API key" placeholder="OpenAI API key"></input>
     <a href="#" id="showKey" class="showKey">🔓</a>
-    <script src="popup.js"></script>
+    <script src="../scripts/logger.js"></script><script src="popup.js"></script>
   </body>
 </html>

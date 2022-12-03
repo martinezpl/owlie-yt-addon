@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/watch?v=*"],
-      "js": ["scripts/openai.js", "scripts/transcript.js", "scripts/ytAction.js"]
+      "js": ["scripts/logger.js", "scripts/openai.js", "scripts/transcript.js", "scripts/ytAction.js"]
     }
   ],
 
