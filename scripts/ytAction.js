@@ -1,10 +1,8 @@
 // Import statements don't work with content scripts, but they share the scope.
 // Therefore imagine lines below are not commented out ^^'
 
-// import {getGPT3Summary, getGPT3Answer} from './openai.js'
+// import {callGPT3} from './openai.js'
 // import {getAvailableTranscripts, fetchEnglishTranscript} from './transcript.js'
-
-// html contains old transcrptions??
 
 try {
   /** Extension's overlay over Youtube' video container */
@@ -34,6 +32,11 @@ try {
     setSummary(text) {
       this.isFilled = true;
       this.summaryField.textContent = 'summary:\n\n' + text;
+    }
+
+    appendSummary(text) {
+      this.summaryField.textContent += '\n\n===========\n' + text;
+      this.summaryField.scrollTop = this.summaryField.scrollHeight;
     }
 
     appendQ(question) {
@@ -120,50 +123,48 @@ try {
         if (e.code == 'Enter') {
           if (this.questionField.value) {
             this.overlay.appendQ(this.questionField.value);
-            getGPT3Answer(this.summary, this.questionField.value).then(
-              (answer) => {
-                this.overlay.appendA(answer);
-              }
-            );
+            this.setLoadingIcon();
+            callGPT3(this.summary, this.questionField.value).then((answer) => {
+              this.setReadyIcon();
+              this.overlay.appendA(answer);
+            });
           }
         }
       });
 
+      this.refreshButton = document.createElement('img');
+      this.refreshButton.src = browser.runtime.getURL('icons/refresh.png');
+      this.refreshButton.addEventListener('click', (e) => {
+        this.summarize(
+          (summary) => {
+            this.summary = summary;
+            this.overlay.appendSummary(summary);
+            this.setReadyIcon();
+          },
+          (err) => {
+            this.overlay.setSummary(err);
+            this.setErrorIcon();
+            this.overlay.toggle();
+          }
+        );
+      });
+
       this.icon.addEventListener('click', async (e) => {
-        Logger.info('click');
+        Logger.log('click');
         if (this.overlay.isFilled) {
-          Logger.info('this.overlay.isFilled');
-          this.toggleQuestionField();
-          this.reset();
+          Logger.log('this.overlay.isFilled');
+          this.togglePanelExtras();
+          this.overlay.toggle();
           return;
         }
 
-        this.setLoadingIcon();
-        getAvailableTranscripts(document.documentElement.outerHTML).then(
-          (availableTranscripts) => {
-            fetchEnglishTranscript(availableTranscripts).then(
-              (transcript) => {
-                getGPT3Summary(transcript).then(
-                  (summary) => {
-                    this.summary = summary;
-                    this.overlay.setSummary(summary);
-                    this.setReadyIcon();
-                    this.toggleQuestionField();
-                    this.overlay.toggle();
-                  },
-                  (err) => {
-                    this.overlay.setSummary(err);
-                    this.setErrorIcon();
-                    this.overlay.toggle();
-                  }
-                );
-              },
-              (err) => {
-                this.overlay.setSummary(err);
-                this.setErrorIcon();
-                this.overlay.toggle();
-              }
-            );
+        this.summarize(
+          (summary) => {
+            this.summary = summary;
+            this.overlay.setSummary(summary);
+            this.setReadyIcon();
+            this.togglePanelExtras();
+            this.overlay.toggle();
           },
           (err) => {
             this.overlay.setSummary(err);
@@ -189,21 +190,23 @@ try {
       this.icon.src = browser.runtime.getURL('icons/icon-1-error.png');
     }
 
-    /** Feels wrong to have this here */
-    toggleQuestionField() {
-      Logger.debug('toggleQuestionField');
+    /** Feels wrong to have this here,
+     * displays/hides the question input field and refresh button
+     * */
+    togglePanelExtras() {
+      Logger.debug('togglePanelExtras');
       const ir = this.icon.getBoundingClientRect();
-      let placement =
+      let leftAllignment =
         document.getElementsByClassName(
           'ytp-chapter-hover-container ytp-exp-chapter-hover-container'
         ).length > 0
-          ? `left: ${ir.left - 360}px;`
-          : `left: ${ir.left + 60}px;`;
+          ? ir.left - 360
+          : ir.left + 60;
       this.questionField.style = `
       position: absolute; 
       width: 300px; 
       height: 15px; 
-      ${placement};
+      left: ${leftAllignment}px;
       top: ${ir.top + 5}px;
       background-color: rgba(0, 0, 0, 0.5);
       border-color: rgba(0, 0, 0, 0.5);
@@ -211,16 +214,34 @@ try {
       z-index: 999;
       border-radius: 2px;
       `;
+      this.refreshButton.style = `
+      position: absolute;
+      left: ${leftAllignment - 30}px;
+      top: ${ir.top}px;
+      z-index: 999;
+      scale: 0.5;
+      `;
       if (this.overlay.isToggled) {
         try {
           document.body.removeChild(this.questionField);
+          document.body.removeChild(this.refreshButton);
         } catch {}
       } else {
         document.body.insertBefore(
           this.questionField,
           document.body.firstChild
         );
+        document.body.insertBefore(this.refreshButton, this.questionField);
       }
+    }
+
+    summarize(successCallback, errCallback) {
+      this.setLoadingIcon();
+      getAvailableTranscripts().then((availableTranscripts) => {
+        fetchEnglishTranscript(availableTranscripts).then((transcript) => {
+          callGPT3(transcript).then(successCallback, errCallback);
+        }, errCallback);
+      }, errCallback);
     }
 
     /** */
@@ -235,7 +256,7 @@ try {
     }
   }
 
-  let lastUrl;
+  let lastUrl = location.href;
   let session = new Owlie();
 
   const observer = new MutationObserver((mutations) => {

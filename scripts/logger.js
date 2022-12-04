@@ -3,13 +3,13 @@ class Logger {
 
   static debug(...args) {
     if (this.on) {
-      console.debug(args);
+      console.debug(...args);
     }
   }
 
-  static info(...args) {
+  static log(...args) {
     if (this.on) {
-      console.info(args);
+      console.log(...args);
     }
   }
 }

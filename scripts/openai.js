@@ -1,11 +1,38 @@
-async function getGPT3Summary(transcript) {
-  Logger.debug('getGPT3Summary');
+async function callGPT3(transcript, question = '') {
+  Logger.debug('GPT3 moshi moshi');
   const apiKey = (await browser.storage.local.get('openAiApiKey')).openAiApiKey;
   const settings = (await browser.storage.local.get('gpt3-settings'))[
     'gpt3-settings'
   ];
-  Logger.debug(settings);
-  Logger.info(transcript);
+  Logger.debug('GPT3 receives settings:', settings);
+  Logger.log(transcript);
+  let body = {};
+  if (question) {
+    body = {
+      model: settings.Imodel,
+      prompt:
+        settings.IprePrompt +
+        transcript +
+        '\n' +
+        settings.IpostPrompt +
+        ' ' +
+        question,
+      max_tokens: parseInt(settings.ImaxTokens),
+      temperature: parseFloat(settings.Itemperature),
+      presence_penalty: parseFloat(settings.IpresencePenalty),
+      frequency_penalty: parseFloat(settings.IfrequencyPenalty),
+    };
+  } else {
+    body = {
+      model: settings.model,
+      prompt:
+        settings.prePrompt + '\n' + transcript + '\n' + settings.postPrompt,
+      max_tokens: parseInt(settings.maxTokens),
+      temperature: parseFloat(settings.temperature),
+      presence_penalty: parseFloat(settings.presencePenalty),
+      frequency_penalty: parseFloat(settings.frequencyPenalty),
+    };
+  }
   let js = await (
     await fetch('https://api.openai.com/v1/completions', {
       method: 'POST',
@@ -16,62 +43,12 @@ async function getGPT3Summary(transcript) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        model: settings.model,
-        prompt:
-          settings.prePrompt + '\n' + transcript + '\n' + settings.postPrompt,
-        max_tokens: parseInt(settings.maxTokens),
-        temperature: parseFloat(settings.temperature),
-        presence_penalty: parseFloat(settings.presencePenalty),
-        frequency_penalty: parseFloat(settings.frequencyPenalty),
-      }),
+      body: JSON.stringify(body),
     })
   ).json();
-  Logger.info(js);
+  Logger.log('GPT3 response:', js);
   if (js.error) {
     throw Error(js.error.message);
   }
-  let summary = js.choices[0].text;
-  return summary;
-}
-
-async function getGPT3Answer(transcript, question) {
-  Logger.debug('getGPT3Answer');
-  const apiKey = (await browser.storage.local.get('openAiApiKey')).openAiApiKey;
-  const settings = (await browser.storage.local.get('gpt3-settings'))[
-    'gpt3-settings'
-  ];
-  Logger.debug(settings);
-  Logger.info(transcript);
-
-  let js = await (
-    await fetch('https://api.openai.com/v1/completions', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: settings.model,
-        prompt:
-          transcript +
-          '\n' +
-          'Based on the above, answer this question: ' +
-          question,
-        max_tokens: parseInt(settings.maxTokens),
-        temperature: 0.25,
-        presence_penalty: -0.5,
-        frequency_penalty: 1,
-      }),
-    })
-  ).json();
-  Logger.info(js);
-  if (js.error) {
-    throw Error(js.error.message);
-  }
-  let answer = js.choices[0].text;
-  return answer;
+  return js.choices[0].text;
 }

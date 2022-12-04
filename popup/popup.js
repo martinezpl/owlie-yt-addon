@@ -23,10 +23,13 @@ for (let i = 0; i < sliders.length; i++) {
 // Load saved settings
 browser.storage.local.get('gpt3-settings').then((obj) => {
   Logger.debug('loaded settings', obj);
+  if (!obj['gpt3-settings']) {
+    return;
+  }
   for (const [key, value] of Object.entries(obj['gpt3-settings'])) {
-    Logger.info(key, value);
+    Logger.log(key, value);
     document.getElementById(key).value = value;
-    if (key == 'model') {
+    if (key.includes('model')) {
       let options = document.getElementById(key).children;
       for (let i = 0; i < options.length; i++) {
         if (options[i].value == value) {
@@ -41,6 +44,10 @@ browser.storage.local.get('gpt3-settings').then((obj) => {
   }
 });
 browser.storage.local.get('openAiApiKey').then((obj) => {
+  Logger.debug('key', obj);
+  if (!obj.openAiApiKey) {
+    return;
+  }
   apiKeyField.value = obj.openAiApiKey;
   apiKeyField.type = 'password';
   document.getElementById('showKey').text = '🔒';
@@ -49,27 +56,29 @@ browser.storage.local.get('openAiApiKey').then((obj) => {
 // Save settings on closing the popup
 window.addEventListener('unload', function () {
   Logger.debug('popup unload!');
-  let settingObj = {};
+  let settingsObj = {};
   let settings = document.getElementsByClassName('setting');
-  Logger.info('settings:', settings);
+  Logger.log('setting elements', settings);
   for (let i = 0; i < settings.length; i++) {
     let inputField = settings[i].firstElementChild;
-    settingObj[inputField.id] = inputField.value;
+    settingsObj[inputField.id] = inputField.value;
   }
-  Logger.info('settings to save:', settingObj);
+  Logger.log('settings to save:', settingsObj);
   browser.storage.local.set({
-    'gpt3-settings': settingObj,
+    'gpt3-settings': settingsObj,
     openAiApiKey: apiKeyField.value,
   });
   Logger.debug('Settings saved!');
 });
 
-// ==== html util
+// ========== html util ==========
 let summaryTabButton = Object.assign(document.createElement('button'), {
+  id: 'summarySettingTab',
   innerText: 'Summary Settings',
   className: 'tablink',
 });
 let interactiveTabButton = Object.assign(document.createElement('button'), {
+  id: 'interactiveSettingTab',
   innerText: 'Interactive Settings',
   className: 'tablink',
 });
@@ -84,7 +93,14 @@ interactiveTabButton.addEventListener('click', (e) =>
 let sb = document.getElementById('settingsBox');
 sb.insertBefore(interactiveTabButton, sb.firstChild);
 sb.insertBefore(summaryTabButton, sb.firstChild);
-summaryTabButton.click();
+browser.storage.local.get('activeTabId').then((obj) => {
+  console.log(obj);
+  if (obj.activeTabId) {
+    document.getElementById(obj.activeTabId).click();
+  } else {
+    summaryTabButton.click();
+  }
+});
 
 function openTab(evt, tabName) {
   console.log('openTAb');
@@ -106,5 +122,6 @@ function openTab(evt, tabName) {
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tabName).style.display = 'block';
   evt.target.className += ' active';
-  console.log(evt.target);
+  browser.storage.local.set({ activeTabId: evt.target.id });
+  console.log('saved', evt.target.id);
 }

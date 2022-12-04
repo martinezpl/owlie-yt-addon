@@ -14,23 +14,18 @@ body {
   background-color: #716e68d5;
 }
 
-.settingsTab {
-  display: none;
-}
-
-
 .tablink {
   float: left;
   width: 50%;
   font-weight: bold;
-  background: rgba(255, 136, 136, 0.201);
-  color: #fff;
   border: none;
   border-top-left-radius: 5px;
-}
-.tablink.active {
   background: #fff;
   color: #665;
+}
+.tablink.active {
+  background: rgba(255, 136, 136, 0.201);
+  color: #fff;
 }
 
 .parameterName {
@@ -122,3 +117,4 @@ a{
   width: 100%;
   z-index: 999;
 }
+

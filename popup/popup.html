@@ -21,24 +21,24 @@
           <div class="column" id="parameterValues">
             <p class="setting" id="summarySettings-model">
               <select name="model" id="model">
-                <option selected value="text-ada-001">Ada</option>
+                <option value="text-ada-001">Ada</option>
                 <option value="text-babbage-001">Babbage</option>
                 <option value="text-curie-001">Curie</option>
                 <option value="text-davinci-002">Davinci</option>
-                <option value="text-davinci-003">Davinci-003</option>
+                <option selected value="text-davinci-003">Davinci-003</option>
               </select>
             </p>
             <p class="setting" id="summarySettings-maxTokens">
-              <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="100" step="1">
+              <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="150" step="5">
             </p>
             <p class="setting" id="summarySettings-temperature">
-              <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
+              <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0" step="0.05">
             </p>
             <p class="setting" id="summarySettings-presencePenalty">
-              <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
+              <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="0.8" step="0.1">
             </p>
             <p class="setting" id="summarySettings-frequencyPenalty">
-              <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
+              <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1.5" step="0.1">
             </p>
           </div>
           <div class="column" id="parameterValueDisplays">
@@ -55,7 +55,7 @@
             <input type="text" placeholder="Before transcript" class="promptInput" id="prePrompt"></input>
           </div>
           <div class="setting" id="summarySettings-postPrompt">
-            <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt"></input>
+            <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt" value="Summarize the substance of the above:"></input>
           </div>
         </div>
       </div>
@@ -71,42 +71,42 @@
           </div>
           <div class="column" id="parameterValues">
             <p class="setting" id="interactiveSettings-model">
-              <select name="model" id="model">
-                <option selected value="text-ada-001">Ada</option>
+              <select name="model" id="Imodel">
+                <option value="text-ada-001">Ada</option>
                 <option value="text-babbage-001">Babbage</option>
                 <option value="text-curie-001">Curie</option>
-                <option value="text-davinci-002">Davinci</option>
+                <option selected value="text-davinci-002">Davinci</option>
                 <option value="text-davinci-003">Davinci-003</option>
               </select>
             </p>
             <p class="setting" id="interactiveSettings-maxTokens">
-              <input class="shortSlider" type="range" id="maxTokens" name="maxTokens" min="25" max="250" value="100" step="1">
+              <input class="shortSlider" type="range" id="ImaxTokens" name="maxTokens" min="25" max="250" value="85" step="5">
             </p>
             <p class="setting" id="interactiveSettings-temperature">
-              <input class="shortSlider" type="range" id="temperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
+              <input class="shortSlider" type="range" id="Itemperature" name="temperature" min="0" max="1" value="0.1" step="0.05">
             </p>
             <p class="setting" id="interactiveSettings-presencePenalty">
-              <input class="shortSlider" type="range" id="presencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
+              <input class="shortSlider" type="range" id="IpresencePenalty" name="presencePenalty" min="-2" max="2" value="-0.5" step="0.1">
             </p>
             <p class="setting" id="interactiveSettings-frequencyPenalty">
-              <input class="shortSlider" type="range" id="frequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
+              <input class="shortSlider" type="range" id="IfrequencyPenalty" name="frequencyPenalty" min="-2" max="2" value="1" step="0.1">
             </p>
           </div>
           <div class="column" id="parameterValueDisplays">
             <p class="parameterValueDisplay">‎ ‎</p>
-            <p class="parameterValueDisplay" id="maxTokensDisplayedValue">100</p>
-            <p class="parameterValueDisplay" id="temperatureDisplayedValue">0.1</p>
-            <p class="parameterValueDisplay" id="presencePenaltyDisplayedValue">-0.5</p>
-            <p class="parameterValueDisplay" id="frequencyPenaltyDisplayedValue">1</p>
+            <p class="parameterValueDisplay" id="ImaxTokensDisplayedValue">100</p>
+            <p class="parameterValueDisplay" id="ItemperatureDisplayedValue">0.1</p>
+            <p class="parameterValueDisplay" id="IpresencePenaltyDisplayedValue">-0.5</p>
+            <p class="parameterValueDisplay" id="IfrequencyPenaltyDisplayedValue">1</p>
           </div>
         </div>
         <div class="promptSection">
           <p class="parameterName">Prompts:</p>
           <div class="setting" id="interactiveSettings-prePrompt">
-            <input type="text" placeholder="Before transcript" class="promptInput" id="prePrompt"></input>
+            <input type="text" placeholder="Before transcript" class="promptInput" id="IprePrompt"></input>
           </div>
           <div class="setting" id="interactiveSettings-postPrompt">
-            <input type="text" placeholder="After transcript" class="promptInput" id="postPrompt"></input>
+            <input type="text" placeholder="After transcript" class="promptInput" id="IpostPrompt" value="Based on the above answer the question:"></input>
           </div>
         </div>
       </div>
