@@ -98,10 +98,11 @@ try {
     }
   }
 
-  /** That's my guy */
   class Owlie {
-    /** Creates Owlie's clickable icon in the video container's controls bar
-     * and prepares video overlay
+    /** Bloated class containing pretty much the whole logic
+     * Creates Owlie's clickable icon in the video container's controls bar
+     * Creates & toggles question field and refresh button
+     *
      */
     constructor() {
       Logger.debug('Owlie constructor');
@@ -268,12 +269,7 @@ try {
     lastUrl = location.href;
     session.reset();
   });
-  const config = {
-    childList: true,
-    subtree: true,
-  };
-
-  observer.observe(document.body, config);
+  observer.observe(document.body, {});
 } catch (e) {
   console.log(e);
 }

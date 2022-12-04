@@ -1,10 +1,10 @@
 Things to improve:
 
-UI 
+bypassing GPT3's context limit
+UI
 text display (more readable)
 code clarity
-bypassing GPT3's context limit
-
+multilingual support
 
 nits/suggestions:
 - overlay adjustment on page mutation (nit, troublesome )

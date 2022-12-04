@@ -20,7 +20,7 @@ body {
   font-weight: bold;
   border: none;
   border-top-left-radius: 5px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.629);
   color: #665;
 }
 .tablink.active {
