@@ -269,7 +269,7 @@ try {
     lastUrl = location.href;
     session.reset();
   });
-  observer.observe(document.body, {});
+  observer.observe(document.body, { childList: true, subtree: true });
 } catch (e) {
   console.log(e);
 }
