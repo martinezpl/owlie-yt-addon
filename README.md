@@ -1,6 +1,8 @@
-# Owlie - Youtube video summarizing assistant
+# ![icon-1](https://user-images.githubusercontent.com/64603095/206002183-b4b6a676-9fe2-4bf0-8d43-fe23082b2d63.png) Owlie - smart Youtube assistant
+
 
 Owlie is a browser extension that fetches English transcription of a Youtube video and sends it to GPT3 with user-specified parameters.
+
 
 This is an experimental build for testing purposes.
 
@@ -17,9 +19,15 @@ This is an experimental build for testing purposes.
 
 There are two kinds of GPT3 requests here - summary and interactive. They have separate configurations customizable in the main popup - you'll start with default values that I've found to work well.
 
-Summary request: `<prePrompt> + <transcript> + <postPrompt> (e.g. "Summarize the key points of the above:")`
+![image](https://user-images.githubusercontent.com/64603095/205995876-732f7c34-b5be-4819-8604-15d547942c4b.png)
 
-Interactive request: `<prePrompt> + <transcript> + <postPrompt>(e.g. "Based on the above answer the question:") + <interactiveFieldValue>`
+Summary request: 
+
+`<prePrompt> + <transcript> + <postPrompt> (e.g. "Summarize the key points of the above:")`
+
+Interactive request: 
+
+`<prePrompt> + <transcript> + <postPrompt>(e.g. "Based on the above answer the question:") + <interactiveFieldValue>`
 
 When visiting any Youtube video, you should see the extension's icon in the bottom panel of the video player. Click it to send the summary request. If a summary is generated, clicking it again hides the overlay (use it to re-adjust the overlay after changing the proportions of the video player).
 
@@ -31,21 +39,31 @@ Click the little button in the bottom left to resend summary request.
 
 You can adjust the models' settings in the extension's pop-up during the session, in between the requests (without refreshing the page etc.) - please make use of it to have some fun with experimenting with the parameters.
 
+## Demo
+
+
+
+![video](https://user-images.githubusercontent.com/64603095/206001174-c57a5418-e0b9-4a22-b9c1-4727ea259a94.mov)
+
+
+
 ## Qucik guide to GPT3
 
 [API Reference](https://beta.openai.com/docs/api-reference/completions/create)
 
 Available models are listed gradually:
 
-Ada - fastest, dumbest, cheapest
+`Ada` - fastest, dumbest, cheapest
+
 [...]
-Davinci-003 - slowest, smartest, most expensive
+
+`Davinci-003` - slowest, smartest, most expensive
 
 ### Parameters:
 
 `Max Tokens` - maximum amount of tokens in the output. You can think of tokens as pieces of words, where 100 tokens is about 75 words.
 
-`Temperature` - basically creativity of the output. The lower the value, the more strict it will be in sticking to the prompt, which I've found optimal for summary purposes.
+`Temperature` - The lower the value, the more strict it will be in sticking to the prompt, which I've found optimal for summary purposes. Higher values are likely to produce weird outputs.
 
 `Presence Penalty` - positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. The negative rewards, increasing the likelihood of sticking to one topic.
 
@@ -67,11 +85,17 @@ Currently Owlie fetches only English subtitles. It could look for other availabl
 
 ### UI can be better
 
-Perhaps the displayed text could be more readable and the overlay windows could be more reactive to the video player's changes. It also doesn't seem obvious to me which tab is the active one :P I'm happy to hear any suggestions.
+- the displayed text could be more readable
+- the overlay windows could be reactive to the video player's changes 
+- doesn't seem obvious to me which tab is the active one :P
+- loading indicators inside the overlay? 
+- a general revamp with a neat, "populistic" design?
+
+I'm happy to hear any suggestions.
 
 ### General code clarity
 
-This is my first full project using html/css/js stack and the code seems messy even to myself. Definitely needs a refactor, I'm happy to hear suggestions or see PRs :)
+This is my first full project using html/css/js stack, I don't know any standards (just using linter) and the just code seems messy. Definitely needs a refactor, I'm happy to hear suggestions or see PRs :)
 
 ### Bugs
 - occasional failure to overwrite settings after closing the popup (retrying helps)
