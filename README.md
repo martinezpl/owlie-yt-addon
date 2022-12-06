@@ -1,7 +1,7 @@
 # ![icon-1](https://user-images.githubusercontent.com/64603095/206002183-b4b6a676-9fe2-4bf0-8d43-fe23082b2d63.png) Owlie - smart Youtube assistant
 
 
-Owlie is a browser extension that fetches English transcription of a Youtube video and sends it to GPT3 with user-specified parameters.
+Owlie is a browser extension that fetches English transcription of a Youtube video and sends it to GPT3 with user-specified parameters. It is able to generate video summaries and descriptive works in general: comments, counter-arguments, poetry etc... 
 
 
 This is an experimental build for testing purposes.
