@@ -21,6 +21,18 @@ try {
       this.mainContainer = document.getElementsByClassName(
         'html5-video-container'
       )[0];
+
+      /**
+       * Add a ResizeObserver and bind it to the video element so
+       * we trigger the adjustOverley function every time the video
+       * player changes size (eg: adjusting window, setting/unsetting 
+       * theater or full screen mode).
+       *  */
+      const dimensionsChangeObserver = new ResizeObserver(() => {
+        this.adjustOverlay()
+      })
+      dimensionsChangeObserver.observe(this.mainContainer)
+
       this.overlay = document.createElement('div');
       this.summaryField = document.createElement('textarea');
       this.summaryField.readOnly = true;
