@@ -141,6 +141,7 @@ try {
               this.setReadyIcon();
               this.overlay.appendA(answer);
             });
+            this.questionField.value = ""
           }
         }
       });
