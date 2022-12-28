@@ -1,0 +1,43 @@
+{
+
+  "manifest_version": 2,
+  "name": "myext",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch?v=*"],
+      "js": ["scripts/logger.js", "scripts/openai.js", "scripts/transcript.js", "scripts/ytAction.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    "icons/*",
+    "scripts/*"
+  ],
+
+  "description": "Summarizes the content of youtube video using available transcription and NLP model.",
+
+  "icons": {
+    "48": "icons/icon-1.png"
+  },
+
+  "permissions": [
+    "webRequest",
+    "storage",
+    "https://www.youtube.com/*",
+    "https://api.openai.com/v1/*"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/icon-1.png",
+    "default_popup": "popup/popup.html"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com"
+    }
+  }
+}
+
