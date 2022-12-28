@@ -1,9 +1,3 @@
-// Import statements don't work with content scripts, but they share the scope.
-// Therefore imagine lines below are not commented out ^^'
-
-// import {callGPT3} from './openai.js'
-// import {getAvailableTranscripts, fetchEnglishTranscript} from './transcript.js'
-
 try {
   /** Extension's overlay over Youtube' video container */
   class VideoOverlay {
@@ -25,13 +19,13 @@ try {
       /**
        * Add a ResizeObserver and bind it to the video element so
        * we trigger the adjustOverley function every time the video
-       * player changes size (eg: adjusting window, setting/unsetting 
+       * player changes size (eg: adjusting window, setting/unsetting
        * theater or full screen mode).
        *  */
       const dimensionsChangeObserver = new ResizeObserver(() => {
-        this.adjustOverlay()
-      })
-      dimensionsChangeObserver.observe(this.mainContainer)
+        this.adjustOverlay();
+      });
+      dimensionsChangeObserver.observe(this.mainContainer);
 
       this.overlay = document.createElement('div');
       this.summaryField = document.createElement('textarea');
@@ -137,7 +131,11 @@ try {
           if (this.questionField.value) {
             this.overlay.appendQ(this.questionField.value);
             this.setLoadingIcon();
-            callGPT3(this.summary, this.questionField.value).then((answer) => {
+            callServer(
+              location.href,
+              'interactive-default',
+              this.questionField.value
+            ).then((answer) => {
               this.setReadyIcon();
               this.overlay.appendA(answer);
             });
@@ -250,11 +248,10 @@ try {
 
     summarize(successCallback, errCallback) {
       this.setLoadingIcon();
-      getAvailableTranscripts().then((availableTranscripts) => {
-        fetchEnglishTranscript(availableTranscripts).then((transcript) => {
-          callGPT3(transcript).then(successCallback, errCallback);
-        }, errCallback);
-      }, errCallback);
+      callServer(location.href, 'summary-default').then(
+        successCallback,
+        errCallback
+      );
     }
 
     /** */

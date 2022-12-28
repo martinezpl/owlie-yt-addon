@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/watch?v=*"],
-      "js": ["scripts/logger.js", "scripts/openai.js", "scripts/transcript.js", "scripts/ytAction.js"]
+      "js": ["scripts/logger.js", "scripts/callServer.js", "scripts/ytAction.js"]
     }
   ],
 
@@ -25,8 +25,7 @@
   "permissions": [
     "webRequest",
     "storage",
-    "https://www.youtube.com/*",
-    "https://api.openai.com/v1/*"
+    "https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"
   ],
 
   "browser_action": {

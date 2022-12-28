@@ -1,10 +1,6 @@
 //** Fetches HTML from Youtube video's URL and parses out available transcripts. */
-async function getAvailableTranscripts() {
-  Logger.debug('getAvailableTranscript');
-
-  // Making a separate request to make sure web-player is fresh
-  // When clicking suggested video on YT, the web-player (and transcript) is not reloaded
-  let html = await (await fetch(location.href)).text();
+export async function getAvailableTranscripts(url) {
+  let html = await (await fetch(url)).text();
   const splitHtml = html.split('"captions":');
   if (splitHtml.length <= 1) {
     if (html.includes('class="g-recaptcha"')) {
@@ -30,8 +26,7 @@ async function getAvailableTranscripts() {
 }
 
 //** Selects English transcript (prioritizing manually written over automatic), GETs transcript's XML, returns parsed text */
-async function fetchEnglishTranscript(captionsJson) {
-  Logger.debug('fetchEnglishTranscript');
+export async function fetchEnglishTranscript(captionsJson) {
   let captions = captionsJson.captionTracks;
   let selectedCaption = null;
 

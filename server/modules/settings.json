@@ -1,0 +1,29 @@
+{
+  "summary-default": {
+    "prePrompt": "",
+    "postPrompt": "Summarize the key points mentioned above:",
+    "model": "text-davinci-003",
+    "maxTokens": "200",
+    "temperature": "0",
+    "presencePenalty": "0.8",
+    "frequencyPenalty": "1.5"
+  },
+  "interactive-default": {
+    "prePrompt": "",
+    "postPrompt": "Based on the above answer the question:",
+    "model": "text-davinci-002",
+    "maxTokens": "100",
+    "temperature": "0.1",
+    "presencePenalty": "-0.5",
+    "frequencyPenalty": "1.0"
+  },
+  "test-default": {
+    "prePrompt": "",
+    "postPrompt": "Summarize the above:",
+    "model": "ada",
+    "maxTokens": "25",
+    "temperature": "0.1",
+    "presencePenalty": "-0.5",
+    "frequencyPenalty": "1.0"
+  }
+}
