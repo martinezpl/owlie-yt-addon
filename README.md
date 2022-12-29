@@ -1,10 +1,7 @@
 # ![icon-1](https://user-images.githubusercontent.com/64603095/206002183-b4b6a676-9fe2-4bf0-8d43-fe23082b2d63.png) Owlie - smart Youtube assistant
 
 
-Owlie is a browser extension that fetches English transcription of a Youtube video and sends it to GPT3 with user-specified parameters. It is able to generate video summaries and descriptive works in general: comments, counter-arguments, poetry etc... 
-
-
-This is an experimental build for testing purposes.
+Owlie is a browser extension that generates video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc.
 
 ## How to install
 
@@ -17,59 +14,11 @@ This is an experimental build for testing purposes.
 
 ## How to use
 
-There are two kinds of GPT3 requests here - summary and interactive. They have separate configurations customizable in the main popup - you'll start with default values that I've found to work well.
-
-![image](https://user-images.githubusercontent.com/64603095/205995876-732f7c34-b5be-4819-8604-15d547942c4b.png)
-
-Summary request: 
-
-`<prePrompt> + <transcript> + <postPrompt> (e.g. "Summarize the key points of the above:")`
-
-Interactive request: 
-
-`<prePrompt> + <transcript> + <postPrompt>(e.g. "Based on the above answer the question:") + <interactiveFieldValue>`
-
 When visiting any Youtube video, you should see the extension's icon in the bottom panel of the video player. Click it to send the summary request. If a summary is generated, clicking it again hides the overlay (use it to re-adjust the overlay after changing the proportions of the video player).
 
 Once summary is generated, you can send interactive requests by inserting text in the interactive field and clicking enter.
 
 Click the little button in the bottom left to resend summary request.
-
-### Note!
-
-You can adjust the models' settings in the extension's pop-up during the session, in between the requests (without refreshing the page etc.) - please make use of it to have some fun with experimenting with the parameters.
-
-## Demo
-
-
-
-![video](https://user-images.githubusercontent.com/64603095/206001174-c57a5418-e0b9-4a22-b9c1-4727ea259a94.mov)
-
-
-
-## Qucik guide to GPT3
-
-[API Reference](https://beta.openai.com/docs/api-reference/completions/create)
-
-Available models are listed gradually:
-
-`Ada` - fastest, dumbest, cheapest
-
-[...]
-
-`Davinci-003` - slowest, smartest, most expensive
-
-### Parameters:
-
-`Max Tokens` - maximum amount of tokens in the output. You can think of tokens as pieces of words, where 100 tokens is about 75 words.
-
-`Temperature` - The lower the value, the more strict it will be in sticking to the prompt, which I've found optimal for summary purposes. Higher values are likely to produce weird outputs.
-
-`Presence Penalty` - positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. The negative rewards, increasing the likelihood of sticking to one topic.
-
-`Frequency Penalty` - positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. Useful in mitigating the likelihood of the model getting stuck in a loop repeating itself.
-
-`Prompts` - the upper prompt is inserted before the transcript, the bottom prompt is inserted after the transcript.
 
 ## Known issues, things to improve
 
@@ -98,5 +47,4 @@ I'm happy to hear any suggestions.
 This is my first full project using html/css/js stack, I don't know any standards (just using linter) and the just code seems messy. Definitely needs a refactor, I'm happy to hear suggestions or see PRs :)
 
 ### Bugs
-- occasional failure to overwrite settings after closing the popup (retrying helps)
 - occasionally components are positioned in places they're not supposed to
