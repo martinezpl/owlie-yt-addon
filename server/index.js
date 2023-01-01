@@ -11,21 +11,29 @@ const transcriptCache = {};
 export async function handler(event, context) {
   const body = JSON.parse(event.body);
 
-  transcriptCache[body.url] =
-    transcriptCache[body.url] ||
-    (await fetchEnglishTranscript(await getAvailableTranscripts(body.url)));
+  try {
+    transcriptCache[body.url] =
+      transcriptCache[body.url] ||
+      (await fetchEnglishTranscript(await getAvailableTranscripts(body.url)));
 
-  const gptResponse = await callGPT3(
-    transcriptCache[body.url],
-    settings[body.settings],
-    body.question || ''
-  );
+    const gptResponse = await callGPT3(
+      transcriptCache[body.url],
+      settings[body.settings],
+      body.question || ''
+    );
 
-  return {
-    statusCode: 200,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify({ text: gptResponse }),
-  };
+    return {
+      statusCode: 200,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ text: gptResponse }),
+    };
+  } catch (err) {
+    return {
+      statusCode: 400,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ text: err.message }),
+    };
+  }
 }
 
 // let e = {
