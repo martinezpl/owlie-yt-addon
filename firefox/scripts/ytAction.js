@@ -12,10 +12,7 @@ try {
     /** Grab video container element, prepare summary field */
     #init() {
       Logger.debug('VideoOverlay init');
-      this.mainContainer = document.getElementsByTagName(
-        'body'
-      )[0];
-
+      this.mainContainer = document.getElementById("owlie-chatbox");
 
       this.overlay = document.createElement('div');
       this.summaryField = document.createElement('textarea');
@@ -64,13 +61,10 @@ try {
     /** Turn the video overlay on/off */
     toggle() {
       Logger.debug('VideoOverlay toggle');
-      if (this.isToggled) {
-        this.mainContainer.removeChild(this.mainContainer.lastChild);
-        this.isToggled = false;
+      if (this.mainContainer.classList.contains("hidden")) {
+        this.mainContainer.classList.remove("hidden")
       } else {
-        this.adjustOverlay();
-        this.mainContainer.appendChild(this.summaryField);
-        this.isToggled = true;
+        this.mainContainer.classList.add("hidden")
       }
     }
 
@@ -89,14 +83,19 @@ try {
     constructor() {
       Logger.debug('Owlie constructor');
 
-      // TODO: add comment here
-      fetch(browser.runtime.getURL('chatbox/chatbox.html')).then(r => r.text()).then(html => {
-        document.body.insertAdjacentHTML('beforeend', html);
-        // not using innerHTML as it would break js event listeners of the page
-      });
+      // Fetch the HTML content, which 
+      const icon = document.createElement("img")
+      icon.classList.add("chat-toggle")
+      icon.id = "owlie-in-container"
+
+      const chatbox = document.createElement("div")
+      chatbox.classList.add("chat-container")
+      chatbox.id = "owlie-chatbox"
+
+      document.body.appendChild(icon)
+      document.body.appendChild(chatbox)
 
       this.icon = document.getElementById('owlie-in-container')
-
       this.overlay = new VideoOverlay();
       this.questionField = document.createElement('input');
       this.questionField.placeholder = "Ask a question within video's context";
