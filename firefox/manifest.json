@@ -15,7 +15,7 @@
     }
   ],
 
-  "web_accessible_resources": ["icons/*", "scripts/*"],
+  "web_accessible_resources": ["icons/*", "scripts/*", "chatbox/chatbox.html"],
 
   "description": "Summarizes the content of youtube video using available transcription and NLP model.",
 
