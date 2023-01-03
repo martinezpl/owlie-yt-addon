@@ -236,7 +236,7 @@ try {
         try {
           document.body.removeChild(this.questionField);
           document.body.removeChild(this.refreshButton);
-        } catch {}
+        } catch { }
       } else {
         document.body.insertBefore(
           this.questionField,
@@ -259,7 +259,7 @@ try {
       Logger.debug('Owlie reset');
       try {
         document.body.removeChild(this.questionField);
-      } catch {}
+      } catch { }
       this.questionField.value = '';
       this.overlay.reset();
       this.icon.src = browser.runtime.getURL('icons/icon-1-steady.png');
