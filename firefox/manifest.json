@@ -10,7 +10,8 @@
         "scripts/logger.js",
         "scripts/callServer.js",
         "scripts/ytAction.js"
-      ]
+      ],
+      "css": ["chatbox/chatbox.css"]
     }
   ],
 
