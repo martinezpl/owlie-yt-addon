@@ -12,20 +12,10 @@ try {
     /** Grab video container element, prepare summary field */
     #init() {
       Logger.debug('VideoOverlay init');
-      this.mainContainer = document.getElementsByClassName(
-        'html5-video-container'
+      this.mainContainer = document.getElementsByTagName(
+        'body'
       )[0];
 
-      /**
-       * Add a ResizeObserver and bind it to the video element so
-       * we trigger the adjustOverley function every time the video
-       * player changes size (eg: adjusting window, setting/unsetting
-       * theater or full screen mode).
-       *  */
-      const dimensionsChangeObserver = new ResizeObserver(() => {
-        this.adjustOverlay();
-      });
-      dimensionsChangeObserver.observe(this.mainContainer);
 
       this.overlay = document.createElement('div');
       this.summaryField = document.createElement('textarea');
@@ -84,23 +74,9 @@ try {
       }
     }
 
-    /** */
+    /** TODO: remove after fixed ui layout */
     adjustOverlay() {
       Logger.debug('VideoOverlay adjustOverlay');
-      const videoFrame = document.getElementsByClassName(
-        'video-stream html5-main-video'
-      )[0];
-      this.summaryField.style = `
-      position: relative; 
-      width: ${videoFrame.style.width}; 
-      height: ${parseInt(videoFrame.style.height.replace('px', '')) - 55}px; 
-      left: ${videoFrame.style.left}; 
-      overflow-y: scroll; 
-      background-color: rgba(0, 0, 0, 0.5); 
-      color: rgba(255, 255, 255, 1); 
-      font-size: 150%; 
-      resize: none;
-      `;
     }
   }
 
@@ -112,15 +88,14 @@ try {
      */
     constructor() {
       Logger.debug('Owlie constructor');
-      this.icon = Object.assign(document.createElement('img'), {
-        id: 'owlie-in-container',
-        src: browser.runtime.getURL('icons/icon-1-steady.png'),
-        style: 'position: relative; scale: 0.6; left: 0px; opacity: 0.7;',
+
+      // TODO: add comment here
+      fetch(browser.runtime.getURL('chatbox/chatbox.html')).then(r => r.text()).then(html => {
+        document.body.insertAdjacentHTML('beforeend', html);
+        // not using innerHTML as it would break js event listeners of the page
       });
 
-      document
-        .getElementsByClassName('ytp-left-controls')[0]
-        .appendChild(this.icon);
+      this.icon = document.getElementById('owlie-in-container')
 
       this.overlay = new VideoOverlay();
       this.questionField = document.createElement('input');

@@ -1,0 +1,49 @@
+:root {
+  --primary: 208, 121, 59;
+  --primary-light: 251, 214, 96;
+  --primary-dark: 125, 58, 42;
+  --background: 239, 233, 213;
+  --body: 62, 60, 46;
+}
+
+.chat-container {
+  position: fixed;
+  width: 30%;
+  height: 70%;
+  right: 4%;
+  bottom: 4%;
+  z-index: 2301;
+  overflow-y: scroll;
+  background-color: rgb(var(--background));
+  color: rgb(var(--body));
+  border: none;
+  border-radius: 1em;
+  padding: 0 1em;
+  font-size: 150%;
+  resize: none;
+}
+
+.chat-container::before {
+  color: rgb(var(--primary));
+  height: 100px;
+  border-radius: 1em 1em 0 0;
+  background-color: rgb(var(--primary));
+  content: url(../icons/icon-1-steady.png);
+}
+
+.chat-toggle {
+  content: url(../icons/icon-1.png);
+  position: fixed;
+  right: 2%;
+  bottom: 4%;
+  border-radius: 50%;
+  background-color: rgb(var(--background));
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  object-fit: contain;
+  scale: 0.5;
+  z-index: 2302;
+  cursor: pointer;
+  box-shadow: 0 2px 14px -10px rgba(0, 0, 0, 0.5);
+}
