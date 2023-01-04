@@ -8,16 +8,17 @@
 
 .chat-container {
   position: fixed;
-  width: 20%;
-  height: 60%;
-  right: 4.5%;
-  bottom: 9%;
+  width: 15%;
+  height: 45%;
+  right: 1%;
+  bottom: 2%;
   z-index: 2301;
   overflow-y: scroll;
-  background-color: rgb(var(--background));
+  background-color: rgb(var(--background), 0.7);
   color: rgb(var(--body));
   border: none;
   border-radius: 1em;
+  border-bottom-right-radius: 2.4em;
   padding: 0 1em;
   font-size: 150%;
   resize: none;
@@ -31,17 +32,15 @@
 }
 
 .chat-toggle {
-  content: url(../icons/icon-1.png);
   position: fixed;
-  right: 0.5%;
+  right: 1%; 
   bottom: 2%;
   border-radius: 50%;
-  background-color: rgb(var(--background));
-  width: 100px;
-  height: 100px;
-  padding: 10px;
-  object-fit: contain;
-  scale: 0.5;
+  background-color: rgb(var(--background), 0.5);
+  width: 70px;
+  height: 70px;
+  padding: 5px;
+  object-fit: scale-down;
   z-index: 2302;
   cursor: pointer;
   box-shadow: 0 2px 14px -10px rgba(0, 0, 0, 0.5);
@@ -49,4 +48,20 @@
 
 .hidden {
   display: none;
+}
+
+.icon-steady {
+  content: url(../icons/icon-1-steady.png);
+}
+
+.icon-loading {
+  content: url(../icons/icon-1-loading.gif);
+}
+
+.icon-ready {
+  content: url(../icons/icon-1-ready.png);
+}
+
+.icon-error {
+  content: url(../icons/icon-1-error.png);
 }
