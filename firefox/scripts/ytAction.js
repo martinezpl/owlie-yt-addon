@@ -85,7 +85,7 @@ try {
             this.chat.toggle();
           },
           (err) => {
-            Logger.log('Got error');
+            Logger.log('Got error:', err);
             this.chat.appendAnswer(err);
             this.setErrorIcon();
             this.chat.toggle();
