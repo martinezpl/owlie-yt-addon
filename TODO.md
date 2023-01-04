@@ -1,0 +1,14 @@
+- Instead of appending/removing overlay, toggle its visibility
+- finish migrating all css/html logic from ytAction.js to /chatbox 
+- update chatbox style/layout:
+  - header
+    - will have owly changing icon
+    - will have close icon to toggle visibility
+    - Will contain visually separated messages
+  - message
+    - will change style depending on its content
+      - summary
+      - question
+      - answer
+  - footer
+    - will contain the chat input, and a send button

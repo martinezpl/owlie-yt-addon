@@ -12,20 +12,7 @@ try {
     /** Grab video container element, prepare summary field */
     #init() {
       Logger.debug('VideoOverlay init');
-      this.mainContainer = document.getElementsByClassName(
-        'html5-video-container'
-      )[0];
-
-      /**
-       * Add a ResizeObserver and bind it to the video element so
-       * we trigger the adjustOverley function every time the video
-       * player changes size (eg: adjusting window, setting/unsetting
-       * theater or full screen mode).
-       *  */
-      const dimensionsChangeObserver = new ResizeObserver(() => {
-        this.adjustOverlay();
-      });
-      dimensionsChangeObserver.observe(this.mainContainer);
+      this.mainContainer = document.getElementById("owlie-chatbox");
 
       this.overlay = document.createElement('div');
       this.summaryField = document.createElement('textarea');
@@ -74,33 +61,16 @@ try {
     /** Turn the video overlay on/off */
     toggle() {
       Logger.debug('VideoOverlay toggle');
-      if (this.isToggled) {
-        this.mainContainer.removeChild(this.mainContainer.lastChild);
-        this.isToggled = false;
+      if (this.mainContainer.classList.contains("hidden")) {
+        this.mainContainer.classList.remove("hidden")
       } else {
-        this.adjustOverlay();
-        this.mainContainer.appendChild(this.summaryField);
-        this.isToggled = true;
+        this.mainContainer.classList.add("hidden")
       }
     }
 
-    /** */
+    /** TODO: remove after fixed ui layout */
     adjustOverlay() {
       Logger.debug('VideoOverlay adjustOverlay');
-      const videoFrame = document.getElementsByClassName(
-        'video-stream html5-main-video'
-      )[0];
-      this.summaryField.style = `
-      position: relative; 
-      width: ${videoFrame.style.width}; 
-      height: ${parseInt(videoFrame.style.height.replace('px', '')) - 55}px; 
-      left: ${videoFrame.style.left}; 
-      overflow-y: scroll; 
-      background-color: rgba(0, 0, 0, 0.5); 
-      color: rgba(255, 255, 255, 1); 
-      font-size: 150%; 
-      resize: none;
-      `;
     }
   }
 
@@ -112,16 +82,20 @@ try {
      */
     constructor() {
       Logger.debug('Owlie constructor');
-      this.icon = Object.assign(document.createElement('img'), {
-        id: 'owlie-in-container',
-        src: browser.runtime.getURL('icons/icon-1-steady.png'),
-        style: 'position: relative; scale: 0.6; left: 0px; opacity: 0.7;',
-      });
 
-      document
-        .getElementsByClassName('ytp-left-controls')[0]
-        .appendChild(this.icon);
+      // Fetch the HTML content, which 
+      const icon = document.createElement("img")
+      icon.classList.add("chat-toggle")
+      icon.id = "owlie-in-container"
 
+      const chatbox = document.createElement("div")
+      chatbox.classList.add("chat-container")
+      chatbox.id = "owlie-chatbox"
+
+      document.body.appendChild(icon)
+      document.body.appendChild(chatbox)
+
+      this.icon = document.getElementById('owlie-in-container')
       this.overlay = new VideoOverlay();
       this.questionField = document.createElement('input');
       this.questionField.placeholder = "Ask a question within video's context";
@@ -236,7 +210,7 @@ try {
         try {
           document.body.removeChild(this.questionField);
           document.body.removeChild(this.refreshButton);
-        } catch {}
+        } catch { }
       } else {
         document.body.insertBefore(
           this.questionField,
@@ -259,7 +233,7 @@ try {
       Logger.debug('Owlie reset');
       try {
         document.body.removeChild(this.questionField);
-      } catch {}
+      } catch { }
       this.questionField.value = '';
       this.overlay.reset();
       this.icon.src = browser.runtime.getURL('icons/icon-1-steady.png');

@@ -1,5 +1,4 @@
 {
-
   "manifest_version": 2,
   "name": "myext",
   "version": "1.0",
@@ -7,14 +6,16 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/watch?v=*"],
-      "js": ["scripts/logger.js", "scripts/callServer.js", "scripts/ytAction.js"]
+      "js": [
+        "scripts/logger.js",
+        "scripts/callServer.js",
+        "scripts/ytAction.js"
+      ],
+      "css": ["chatbox/chatbox.css"]
     }
   ],
 
-  "web_accessible_resources": [
-    "icons/*",
-    "scripts/*"
-  ],
+  "web_accessible_resources": ["icons/*", "scripts/*", "chatbox/chatbox.html"],
 
   "description": "Summarizes the content of youtube video using available transcription and NLP model.",
 
@@ -39,4 +40,3 @@
     }
   }
 }
-
