@@ -13,7 +13,7 @@ async function callServer(url, settingsMode, question = '') {
         },
         body: JSON.stringify({
           url: url,
-          settings: settingsMode,
+          settings: settingsMode, // hardcode 'test-default' here when testing
           question: question,
         }),
       }
