@@ -24,11 +24,12 @@
 
 .msg-space {
   width: 100%;
-  height: 78%;
+  height: 80%;
   overflow-y: scroll;
   background-color: rgb(var(--background), 0.2);
   color: rgb(var(--body));
-  font-size: 110%;
+  font-size: 125%;
+  margin-top: 2%;
   resize: none;
 }
 
@@ -64,8 +65,8 @@
 }
 
 .question-box {
-  background-color: rgba(119, 122, 193, 0.8);
   color: whitesmoke;
+  background-color: rgba(119, 122, 193, 0.8);
   padding: 5px;
   margin: 5%;
   margin-left: 10%;
