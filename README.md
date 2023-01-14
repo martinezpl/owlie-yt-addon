@@ -13,7 +13,14 @@ This will open a browser window with the plugin loaded and any changes will be d
 
 ## How to use
 
+
 Clicking Owlie's icon in the bottom right corner will trigger summarization. Once ready, chat will appear where you can ask further questions about the content of the video.
+
+
+
+https://user-images.githubusercontent.com/64603095/212501604-ba455897-977a-40f3-9b55-e46f355bcad0.mp4
+
+
 
 ## Known issues, things to improve
 
