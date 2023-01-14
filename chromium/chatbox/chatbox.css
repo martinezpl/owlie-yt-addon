@@ -85,17 +85,17 @@
 }
 
 .icon-steady {
-  content: url(../icons/icon-1-steady.png);
+  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-steady.png);
 }
 
 .icon-loading {
-  content: url(../icons/icon-1-loading.gif);
+  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-loading.gif);
 }
 
 .icon-ready {
-  content: url(../icons/icon-1-ready.png);
+  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-ready.png);
 }
 
 .icon-error {
-  content: url(../icons/icon-1-error.png);
+  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-error.png);
 }
