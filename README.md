@@ -6,8 +6,8 @@ Owlie is a browser extension that generates video summaries and descriptive work
 ## Local development
 
 1. npm install --global web-ext
-2. cd firefox
-3. web-ext run
+2. cd firefox / cd chromium
+3. web-ext run --target chromium / firefox-desktop
 
 This will open a browser window with the plugin loaded and any changes will be dynamically reloaded.
 

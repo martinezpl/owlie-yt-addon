@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "myext",
+  "name": "Owlie Youtube assistant",
   "version": "1.0",
+  "author": "royfish@proton.me",
 
   "content_scripts": [
     {
@@ -17,7 +18,7 @@
 
   "web_accessible_resources": ["icons/*", "scripts/*", "chatbox/chatbox.html"],
 
-  "description": "Summarizes the content of youtube video using available transcription and NLP model.",
+  "description": "Summarizes the content of youtube video using available transcription and NLP model (GPT 3.5).",
 
   "icons": {
     "48": "icons/icon-1.png"
