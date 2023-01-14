@@ -2,16 +2,21 @@ try {
   class Chat {
     constructor(parentIcon) {
       this.parentIcon = parentIcon;
-      this.messages = [];
 
       this.div = document.createElement('div');
       this.div.id = 'owlie-chatbox';
       this.div.classList.add('chat-container');
 
+      this.messageSection = document.createElement('div');
+      this.messageSection.id = 'owlie-chatbox-msg-space';
+      this.messageSection.classList.add('msg-space');
+      this.div.appendChild(this.messageSection);
+
       this.div.classList.add('hidden');
       this.isToggled = false;
 
-      this.questionField = document.createElement('input');
+      this.questionField = document.createElement('textarea');
+      this.questionField.classList.add('input-field');
       this.questionField.placeholder = "Ask a question within video's context";
 
       this.questionField.addEventListener('keyup', async (e) => {
@@ -27,10 +32,14 @@ try {
               this.parentIcon.setReadyIcon();
               this.appendAnswer(answer);
             });
+            this.questionField.value = '';
+            this.messageSection.scrollTop = this.messageSection.scrollHeight;
           }
         }
       });
+      this.div.appendChild(this.questionField);
     }
+
     toggle() {
       if (this.isToggled) {
         this.div.classList.add('hidden');
@@ -43,12 +52,20 @@ try {
 
     appendQuestion(txt) {
       // Create a question element, push it
-      this.messages.push(txt);
+      let question = document.createElement('div');
+      question.classList.add('question-box');
+      question.innerText = txt;
+      this.messageSection.appendChild(question);
+      this.messageSection.scrollTop = this.messageSection.scrollHeight;
     }
 
     appendAnswer(txt) {
       // Create an answer element, push it
-      this.messages.push(txt);
+      let answer = document.createElement('div');
+      answer.classList.add('answer-box');
+      answer.innerText = txt;
+      this.messageSection.appendChild(answer);
+      this.messageSection.scrollTop = this.messageSection.scrollHeight;
     }
   }
   class Owlie {
@@ -72,7 +89,7 @@ try {
           return;
         }
 
-        if (this.chat.messages.length > 0) {
+        if (this.chat.messageSection.children.length > 0) {
           Logger.log('Messages exist, no call');
           this.chat.toggle();
           return;

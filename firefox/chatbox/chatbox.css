@@ -8,19 +8,27 @@
 
 .chat-container {
   position: fixed;
-  width: 15%;
+  width: 20%;
   height: 45%;
-  right: 1%;
-  bottom: 2%;
+  right: 4%;
+  bottom: 1%;
   z-index: 2301;
-  overflow-y: scroll;
   background-color: rgb(var(--background), 0.7);
   color: rgb(var(--body));
   border: none;
   border-radius: 1em;
   border-bottom-right-radius: 2.4em;
-  padding: 0 1em;
-  font-size: 150%;
+  padding-bottom: 1em;
+  resize: none;
+}
+
+.msg-space {
+  width: 100%;
+  height: 78%;
+  overflow-y: scroll;
+  background-color: rgb(var(--background), 0.2);
+  color: rgb(var(--body));
+  font-size: 110%;
   resize: none;
 }
 
@@ -33,17 +41,42 @@
 
 .chat-toggle {
   position: fixed;
-  right: 1%; 
-  bottom: 2%;
+  right: 0.5%; 
+  bottom: 1%;
   border-radius: 50%;
   background-color: rgb(var(--background), 0.5);
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   padding: 5px;
   object-fit: scale-down;
   z-index: 2302;
   cursor: pointer;
   box-shadow: 0 2px 14px -10px rgba(0, 0, 0, 0.5);
+}
+
+.input-field {
+  position: absolute;
+  bottom: 1%;
+  margin-left: 5%;
+  width: 85%;
+  height: 50px;
+  resize: none;
+}
+
+.question-box {
+  background-color: rgba(119, 122, 193, 0.8);
+  color: whitesmoke;
+  padding: 5px;
+  margin: 5%;
+  margin-left: 10%;
+}
+
+.answer-box {
+  color: whitesmoke;
+  background-color: rgba(54, 60, 248, 0.8);
+  padding: 5px;
+  margin: 5%;
+  margin-right: 10%;
 }
 
 .hidden {
