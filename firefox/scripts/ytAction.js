@@ -40,14 +40,14 @@ try {
       this.div.appendChild(this.questionField);
     }
 
-    toggle() {
-      if (this.isToggled) {
-        this.div.classList.add('hidden');
-        this.isToggled = false;
-      } else {
-        this.div.classList.remove('hidden');
-        this.isToggled = true;
-      }
+    toggleOff() {
+      this.div.classList.add('hidden');
+      this.isToggled = false;
+    }
+
+    toggleOn() {
+      this.div.classList.remove('hidden');
+      this.isToggled = true;
     }
 
     appendQuestion(txt) {
@@ -85,13 +85,13 @@ try {
         Logger.log('click');
         if (this.chat.isToggled) {
           Logger.log('this.chat.isToggled');
-          this.chat.toggle();
+          this.chat.toggleOff();
           return;
         }
 
         if (this.chat.messageSection.children.length > 0) {
           Logger.log('Messages exist, no call');
-          this.chat.toggle();
+          this.chat.toggleOn();
           return;
         }
         this.summarize(
@@ -99,13 +99,13 @@ try {
             Logger.log('Appending summary');
             this.chat.appendAnswer(summary);
             this.setReadyIcon();
-            this.chat.toggle();
+            this.chat.toggleOn();
           },
           (err) => {
             Logger.log('Got error:', err);
             this.chat.appendAnswer(err);
             this.setErrorIcon();
-            this.chat.toggle();
+            this.chat.toggleOn();
           }
         );
       });
@@ -136,6 +136,13 @@ try {
         errCallback
       );
     }
+
+    reset() {
+      this.icon.classList.remove('icon-ready', 'icon-error', 'icon-loading');
+      this.icon.classList.add('icon-steady');
+      this.chat.messageSection.replaceChildren([]);
+      this.chat.toggleOff();
+    }
   }
 
   let lastUrl = location.href;
@@ -148,8 +155,7 @@ try {
     }
     Logger.debug(lastUrl, ' -> ', location.href);
     lastUrl = location.href;
-    delete session;
-    session = new Owlie();
+    session.reset();
   });
   observer.observe(document.body, { childList: true, subtree: true });
 } catch (e) {
