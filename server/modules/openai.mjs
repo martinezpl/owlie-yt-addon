@@ -30,5 +30,8 @@ export async function callGPT3(transcript, settings, question = '') {
   if (js.error) {
     throw Error(js.error.message);
   }
+  if (js.choices[0].text.startsWith('\n')) {
+    js.choices[0].text = js.choices[0].text.substring(1);
+  }
   return js.choices[0].text;
 }
