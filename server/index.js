@@ -24,19 +24,12 @@ export async function handler(event, context) {
 
     return {
       statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
       body: JSON.stringify({ text: gptResponse }),
     };
   } catch (err) {
     return {
       statusCode: 400,
-      headers: { 'Access-Control-Allow-Origin': '*' },
       body: JSON.stringify({ text: err.message }),
     };
   }
 }
-
-// let e = {
-//   body: '{"url": "https://www.youtube.com/watch?v=6Our9gkWG08", "settings": "summary-default"}',
-// };
-// console.log(await handler(e));

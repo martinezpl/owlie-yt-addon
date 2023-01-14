@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Owlie Youtube assistant",
   "version": "1.0",
   "author": "royfish@proton.me",
@@ -16,7 +16,7 @@
     }
   ],
 
-  "web_accessible_resources": ["icons/*", "scripts/*", "chatbox/chatbox.html"],
+  "web_accessible_resources": [{"resources": ["icons/*", "scripts/*", "chatbox/*"], "matches": ["https://www.youtube.com/*"]}],
 
   "description": "Summarizes the content of youtube video using available transcription and NLP model (GPT 3.5).",
 
@@ -24,6 +24,7 @@
     "48": "icons/icon-1.png"
   },
 
+  "host_permissions": ["https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"],
   "permissions": [
     "webRequest",
     "storage",
