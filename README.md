@@ -42,7 +42,3 @@ This will open a browser window with the plugin loaded and any changes will be d
 This limit makes it impossible to summarize videos that contain more than ~3000 words (from my observations, videos longer than ~15-20 minutes).
 
 A workaround I have in mind is splitting the transcript, generating multiple summaries from the splits and then summarising the summaries at the end.
-
-### Multilingual support
-
-Currently Owlie fetches only English subtitles. It could look for other available subtitles.
