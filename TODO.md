@@ -1,5 +1,4 @@
 - Improve UI!!
-- Hide toggle icon when video is fullscreen
 - Unify browser codebase (most of the code is duplicated)
 
 ## Public version

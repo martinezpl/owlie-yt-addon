@@ -150,6 +150,11 @@ try {
 
   const observer = new MutationObserver((mutations) => {
     // executed on any dynamic change in the page
+    if (document.fullscreenElement) {
+      session.icon.classList.add('hidden');
+    } else {
+      session.icon.classList.remove('hidden');
+    }
     if (location.href == lastUrl) {
       return;
     }
