@@ -3,4 +3,4 @@
 - Unify browser codebase (most of the code is duplicated)
 
 ## Public version
-- Create a way to purchase monthly access keys through a 3rd party solution without us having to handle a user base and billing data
+- Create a way to purchase monthly access keys through a 3rd party solution without us having to handle a user base nor billing data or some other way to make it self-sustainable
