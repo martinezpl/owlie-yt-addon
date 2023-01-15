@@ -25,24 +25,19 @@ export async function getAvailableTranscripts(url) {
   return captionsJson;
 }
 
-//** Selects English transcript (prioritizing manually written over automatic), GETs transcript's XML, returns parsed text */
+//** Selects main transcript (prioritizing manually written over automatic), GETs transcript's XML, returns parsed text */
 export async function fetchEnglishTranscript(captionsJson) {
   let captions = captionsJson.captionTracks;
-  let selectedCaption = null;
+  let selectedCaption = captions[0];
 
   for (let i = 0; i < captions.length; i++) {
-    if (captions[i].languageCode == 'en') {
-      if (selectedCaption & (captions[i].kind != 'asr')) {
-        // Instantly return english transcript that's been written manually
-        return selectedCaption;
-      }
+    if (captions[i].kind != 'asr') {
+      // Instantly return transcript that's been written manually
       selectedCaption = captions[i];
+      break;
     }
   }
-  if (!selectedCaption) {
-    // TODO: Add translation
-    throw Error('No English transcription available!');
-  }
+
   let xml = await (await fetch(selectedCaption.baseUrl)).text();
 
   // Turn XML subtitles into a long paragraph
