@@ -6,7 +6,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/watch?v=*"],
+      "matches": ["https://www.youtube.com/*"],
       "js": [
         "scripts/logger.js",
         "scripts/callServer.js",

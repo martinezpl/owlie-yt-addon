@@ -6,7 +6,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/watch?v=*"],
+      "matches": ["https://www.youtube.com/*"],
       "js": [
         "scripts/logger.js",
         "scripts/callServer.js",
@@ -27,18 +27,6 @@
   "host_permissions": ["https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"],
   "permissions": [
     "webRequest",
-    "storage",
-    "https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"
-  ],
-
-  "browser_action": {
-    "default_icon": "icons/icon-1.png",
-    "default_popup": "popup/popup.html"
-  },
-
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "addon@example.com"
-    }
-  }
+    "storage"
+  ]
 }
