@@ -42,7 +42,7 @@
 
 .chat-toggle {
   position: fixed;
-  right: 0.5%; 
+  right: 0.5%;
   bottom: 1%;
   border-radius: 50%;
   background-color: rgb(var(--background), 0.5);
