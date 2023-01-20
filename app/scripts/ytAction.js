@@ -74,7 +74,7 @@ try {
 
       this.icon = document.createElement('img');
       this.icon.classList.add('chat-toggle');
-      this.icon.classList.add('icon-steady');
+      this.icon.src = chrome.runtime.getURL("../icons/icon-1-steady.png")
       this.icon.id = 'owlie-toggle';
 
       this.chat = new Chat(this);
@@ -113,20 +113,17 @@ try {
 
     /** */
     async setLoadingIcon() {
-      this.icon.classList.remove('icon-ready', 'icon-steady');
-      this.icon.classList.add('icon-loading');
+      this.icon.src = chrome.runtime.getURL("../icons/icon-1-loading.gif")
     }
 
     /** */
     async setReadyIcon() {
-      this.icon.classList.remove('icon-loading');
-      this.icon.classList.add('icon-ready');
+      this.icon.src = chrome.runtime.getURL("../icons/icon-1-ready.png")
     }
 
     /** */
     async setErrorIcon() {
-      this.icon.classList.remove('icon-loading');
-      this.icon.classList.add('icon-error');
+      this.icon.src = chrome.runtime.getURL("../icons/icon-1-error.png")
     }
 
     summarize(successCallback, errCallback) {
@@ -138,8 +135,7 @@ try {
     }
 
     reset() {
-      this.icon.classList.remove('icon-ready', 'icon-error', 'icon-loading');
-      this.icon.classList.add('icon-steady');
+      this.icon.src = chrome.runtime.getURL("../icons/icon-1-steady.png")
       this.chat.messageSection.replaceChildren([]);
       this.chat.toggleOff();
     }

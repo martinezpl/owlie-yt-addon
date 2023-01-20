@@ -42,7 +42,7 @@
 
 .chat-toggle {
   position: fixed;
-  right: 0.5%; 
+  right: 0.5%;
   bottom: 1%;
   border-radius: 50%;
   background-color: rgb(var(--background), 0.5);
@@ -82,20 +82,4 @@
 
 .hidden {
   display: none;
-}
-
-.icon-steady {
-  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-steady.png);
-}
-
-.icon-loading {
-  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-loading.gif);
-}
-
-.icon-ready {
-  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-ready.png);
-}
-
-.icon-error {
-  content: url(chrome-extension://__MSG_@@extension_id__/icons/icon-1-error.png);
 }
