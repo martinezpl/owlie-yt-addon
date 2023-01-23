@@ -78,7 +78,7 @@ export function xmlToText(xml) {
     .replace('  ', ' ');
 }
 
-//** Turn XML subtitles into a timestamp: paragraph object */
+//** Turn XML subtitles into a span tags with text and timestamp encoded */
 export function xmlToSpanTags(xml) {
   let textTags = xml.match(/<text[^>]*>([\s\S]*?)<\/text>/g);
 
