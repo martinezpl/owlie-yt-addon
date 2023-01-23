@@ -83,3 +83,8 @@
 .hidden {
   display: none;
 }
+
+.timestampText:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

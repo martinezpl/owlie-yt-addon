@@ -1,5 +1,6 @@
-async function callServer(url, settingsMode, question = '') {
+async function callServer(url, question = '') {
   Logger.debug('Server moshi moshi');
+  Logger.debug(question);
   let js = await (
     await fetch(
       'https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/',
@@ -13,8 +14,7 @@ async function callServer(url, settingsMode, question = '') {
         },
         body: JSON.stringify({
           url: url,
-          settings: settingsMode, // hardcode 'test-default' here when testing
-          question: question,
+          question: question.replace('\n', ''),
         }),
       }
     )
@@ -23,5 +23,5 @@ async function callServer(url, settingsMode, question = '') {
   if (js.error) {
     throw Error(js.error.message);
   }
-  return js.text;
+  return js.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"');
 }

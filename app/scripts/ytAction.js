@@ -1,7 +1,7 @@
 try {
   class Chat {
-    constructor(parentIcon) {
-      this.parentIcon = parentIcon;
+    constructor(parent) {
+      this.parent = parent;
 
       this.div = document.createElement('div');
       this.div.id = 'owlie-chatbox';
@@ -17,23 +17,39 @@ try {
 
       this.questionField = document.createElement('textarea');
       this.questionField.classList.add('input-field');
-      this.questionField.placeholder = "Ask a question within video's context";
+      this.questionField.placeholder =
+        "Ask a question within video's context or write /help to see available commands";
+
+      document.addEventListener('click', function (event) {
+        Logger.debug(event);
+        if (event.target.classList.contains('timestampText')) {
+          try {
+            let ytPlayer = document.querySelector(
+              '#movie_player > div.html5-video-container > video'
+            );
+            ytPlayer.currentTime = event.target.dataset.start;
+            ytPlayer.play();
+          } catch (err) {
+            Logger.debug(err);
+          }
+        }
+      });
 
       this.questionField.addEventListener('keyup', async (e) => {
         if (e.code == 'Enter') {
-          if (this.questionField.value) {
+          if (this.questionField.value.replace(' ', '').replace('\n', '')) {
             this.appendQuestion(this.questionField.value);
-            this.parentIcon.setLoadingIcon();
-            callServer(
-              location.href,
-              'interactive-default',
-              this.questionField.value
-            ).then((answer) => {
-              this.parentIcon.setReadyIcon();
-              this.appendAnswer(answer);
-            });
+            this.parent.setLoadingIcon();
+            callServer(location.href, this.questionField.value).then(
+              (answer) => {
+                this.parent.setReadyIcon();
+                this.appendAnswer(answer);
+              }
+            );
             this.questionField.value = '';
             this.messageSection.scrollTop = this.messageSection.scrollHeight;
+          } else {
+            this.questionField.value = '';
           }
         }
       });
@@ -54,7 +70,7 @@ try {
       // Create a question element, push it
       let question = document.createElement('div');
       question.classList.add('question-box');
-      question.innerText = txt;
+      question.innerHTML = txt;
       this.messageSection.appendChild(question);
       this.messageSection.scrollTop = this.messageSection.scrollHeight;
     }
@@ -63,7 +79,7 @@ try {
       // Create an answer element, push it
       let answer = document.createElement('div');
       answer.classList.add('answer-box');
-      answer.innerText = txt;
+      answer.innerHTML = txt;
       this.messageSection.appendChild(answer);
       this.messageSection.scrollTop = this.messageSection.scrollHeight;
     }
@@ -74,7 +90,7 @@ try {
 
       this.icon = document.createElement('img');
       this.icon.classList.add('chat-toggle');
-      this.icon.src = chrome.runtime.getURL("../icons/icon-1-steady.png")
+      this.icon.src = chrome.runtime.getURL('../icons/icon-1-steady.png');
       this.icon.id = 'owlie-toggle';
 
       this.chat = new Chat(this);
@@ -88,54 +104,27 @@ try {
           this.chat.toggleOff();
           return;
         }
-
-        if (this.chat.messageSection.children.length > 0) {
-          Logger.log('Messages exist, no call');
-          this.chat.toggleOn();
-          return;
-        }
-        this.summarize(
-          (summary) => {
-            Logger.log('Appending summary');
-            this.chat.appendAnswer(summary);
-            this.setReadyIcon();
-            this.chat.toggleOn();
-          },
-          (err) => {
-            Logger.log('Got error:', err);
-            this.chat.appendAnswer(err);
-            this.setErrorIcon();
-            this.chat.toggleOn();
-          }
-        );
+        this.chat.toggleOn();
       });
     }
 
     /** */
     async setLoadingIcon() {
-      this.icon.src = chrome.runtime.getURL("../icons/icon-1-loading.gif")
+      this.icon.src = chrome.runtime.getURL('../icons/icon-1-loading.gif');
     }
 
     /** */
     async setReadyIcon() {
-      this.icon.src = chrome.runtime.getURL("../icons/icon-1-ready.png")
+      this.icon.src = chrome.runtime.getURL('../icons/icon-1-ready.png');
     }
 
     /** */
     async setErrorIcon() {
-      this.icon.src = chrome.runtime.getURL("../icons/icon-1-error.png")
-    }
-
-    summarize(successCallback, errCallback) {
-      this.setLoadingIcon();
-      callServer(location.href, 'summary-default').then(
-        successCallback,
-        errCallback
-      );
+      this.icon.src = chrome.runtime.getURL('../icons/icon-1-error.png');
     }
 
     reset() {
-      this.icon.src = chrome.runtime.getURL("../icons/icon-1-steady.png")
+      this.icon.src = chrome.runtime.getURL('../icons/icon-1-steady.png');
       this.chat.messageSection.replaceChildren([]);
       this.chat.toggleOff();
     }
