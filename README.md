@@ -23,11 +23,9 @@ If we do not have the specific manifest, feel free to create it and send a PR.
 
 ## How to use
 
-When visiting a Youtube's page you'll see Owlie's icon in the bottom right corner of the page. Clicking the icon will trigger summarization. Once ready, a chat will appear, where you can ask further questions about the content of the video. 
+When visiting a Youtube's page you'll see Owlie's icon in the bottom right corner of the page. Click it to open the chat. Write `/help` to see available commands or simply ask a question about the video or tell it to do something fun.
 
 Keep in mind that the answers accord to the video's content.
-
-https://user-images.githubusercontent.com/64603095/212501604-ba455897-977a-40f3-9b55-e46f355bcad0.mp4
 
 
 ## Local development
