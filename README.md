@@ -6,7 +6,7 @@ Owlie is a browser extension that generates video summaries and descriptive work
 ## Local installation
 
 1. Clone this repository.
-2. run `./build.sh BROWSER MANIFEST_VERSION` 
+2. run `./build.sh` 
 
 If we do not have the specific manifest, feel free to create it and send a PR.
 
@@ -14,12 +14,12 @@ If we do not have the specific manifest, feel free to create it and send a PR.
 
 1. Go to this address: `about:debugging#/runtime/this-firefox`
 2. Click `Load Temporary Add-on...`
-3. Select `manifest.json` in the `dist/v2/firefox` directory
+3. Select `manifest.json` in the `dist/firefox` directory
 
 ### Chrome
 
 1. Go to this address: `chrome://extensions/`
-2. Drag `dist/v3/chrome` directory into Chrome's window
+2. Drag `dist/chromium` directory into Chrome's window
 
 ## How to use
 
@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/64603095/212501604-ba455897-977a-40f3-
 ## Local development
 
 1. npm install --global web-ext
-2. copy your desired manifest from the `manifest` directory into `app`. Example: `cp manifest/v2/firefox.json app/manifest.json`
+2. copy your desired manifest from the `manifest` directory into `app`. Example: `cp manifest/v2/manifest.json app/manifest.json`
 3. cd `app`
 4. web-ext run --target chromium / firefox-desktop
 
