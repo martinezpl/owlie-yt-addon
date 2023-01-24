@@ -9,15 +9,18 @@ import {
 import settings from './modules/settings.json' assert { type: 'json' };
 import languageCodes from './modules/languageCodes.json' assert { type: 'json' };
 
+const examples = [
+  'Write me a poem about it.',
+  'Disagree with the speaker.',
+  'Resúmelo en español.',
+  "Explain it to me like I'm 5 years old.",
+  'Turn it into a funny story.',
+];
+
 function getHelpMessage() {
-  let example = [
-    'Write me a poem about it.',
-    'Disagree with the speaker.',
-    'Resúmelo en español.',
-    "Explain it to me like I'm 5 years old.",
-    'Turn it into a funny story.',
-  ][Math.floor(Math.random() * 5)];
-  return `Commands:<br>- <b>/s</b> : summarize the video's content<br>- <b>/t</b> : extract transcription; click on a sentence to jump to the moment it's spoken<br>- <b>/lang</b> : see supported language codes<br>- <b>/help</b> : see this message<br><br>You can optionally add a language code to target a specific language, e.g. "/t es", "/s pl", etc..<br>If the transcript for the language is not available I will default to English or the only existing transcript.<br><br>You can also simply ask a question or tell me what to do with the video's content. For example: "${example}"`;
+  return `Commands:<br>- <b>/s</b> : summarize the video's content<br>- <b>/t</b> : extract transcription; click on a sentence to jump to the moment it's spoken<br>- <b>/lang</b> : see available language codes for the video<br>- <b>/help</b> : see this message<br><br>You can optionally add a language code to target a specific language, e.g. "/t es", "/s pl", etc..<br>If the transcript for the language is not available I will default to English or the only existing transcript.<br><br>You can also simply ask a question or tell me what to do with the video's content. For example: "${
+    examples[Math.floor(Math.random() * 5)]
+  }"`;
 }
 
 const transcriptCache = {};
@@ -47,9 +50,10 @@ export async function handler(event, context) {
   }
 
   try {
+    let availableTranscript = await getAvailableTranscripts(body.url);
     transcriptCache[body.url][lang] =
       transcriptCache[body.url][lang] ||
-      (await fetchTranscript(await getAvailableTranscripts(body.url), lang));
+      (await fetchTranscript(availableTranscript, lang));
 
     if (body.question == '/t') {
       return {
@@ -62,9 +66,12 @@ export async function handler(event, context) {
       mode = 'summary-default';
       body.question = '';
     } else if (body.question == '/lang') {
+      let captions = availableTranscript.captionTracks;
       let html = '';
-      for (const [key, value] of Object.entries(languageCodes)) {
-        html += `${key}: ${value}<br>`;
+      for (let i = 0; i < captions.length; i++) {
+        html += `${captions[i].languageCode.split('-')[0]}: ${
+          languageCodes[captions[i].languageCode.split('-')[0]]
+        }<br>`;
       }
       return {
         statusCode: 200,
