@@ -7,16 +7,12 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": [
-        "scripts/logger.js",
-        "scripts/callServer.js",
-        "scripts/ytAction.js"
-      ],
-      "css": ["chatbox/chatbox.css"]
+      "js": ["assets/index.js"],
+      "css": ["assets/index.css"]
     }
   ],
 
-  "web_accessible_resources": ["icons/*", "scripts/*", "chatbox/chatbox.html"],
+  "web_accessible_resources": ["index.html"],
 
   "description": "Summarizes the content of youtube video using available transcription and NLP model (GPT 3.5).",
 
@@ -32,7 +28,7 @@
 
   "browser_action": {
     "default_icon": "icons/icon-1.png",
-    "default_popup": "popup/popup.html"
+    "default_popup": "index.html"
   },
 
   "browser_specific_settings": {
