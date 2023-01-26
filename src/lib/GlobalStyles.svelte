@@ -6,4 +6,9 @@
     --background: 239, 233, 213;
     --body: 62, 60, 46;
   }
+
+  :global(*) {
+    font-family: "ABeeZee";
+    font-size: medium;
+  }
 </style>
