@@ -2,22 +2,22 @@ interface MessageBase {
   speaker: "user" | "backend";
 }
 
-export interface HtmlMessage extends MessageBase {
+interface HtmlMessage extends MessageBase {
   text: string;
   type: "html";
 }
 
-export interface TranscriptNode {
+interface TranscriptNode {
   dataStart: number;
   text: string;
 }
 
-export interface TranscriptMessage extends MessageBase {
+interface TranscriptMessage extends MessageBase {
   transcript: Array<TranscriptNode>;
   type: "transcript";
 }
 
-export interface TextMessage extends MessageBase {
+interface TextMessage extends MessageBase {
   text: string;
   type: "text";
 }
