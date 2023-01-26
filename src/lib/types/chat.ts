@@ -7,10 +7,10 @@ interface HtmlMessage extends MessageBase {
   type: "html";
 }
 
-interface TranscriptNode {
+export type TranscriptNode = {
   dataStart: number;
   text: string;
-}
+};
 
 interface TranscriptMessage extends MessageBase {
   transcript: Array<TranscriptNode>;
