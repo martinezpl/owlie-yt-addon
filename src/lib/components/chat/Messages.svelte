@@ -11,18 +11,18 @@
 </script>
 
 <div class="msgs-container" bind:this={msgsContainer}>
-  {#each $conversationHistory as { text, type, speaker }}
-    <div class="msg {speaker}">
-      {#if type === "text"}
-        {text}
-      {:else if type === "html"}
-        {@html text}
-      {:else if type === "transcript"}
+  {#each $conversationHistory as msg}
+    <div class="msg {msg.speaker}">
+      {#if msg.type === "text"}
+        {msg.text}
+      {:else if msg.type === "html"}
+        {@html msg.text}
+      {:else if msg.type === "transcript"}
         <!-- 
         TODO: parse message, create Transcription component. 
         May need some backend refactor 
         -->
-        {text}
+        {msg.transcript}
       {/if}
     </div>
   {/each}

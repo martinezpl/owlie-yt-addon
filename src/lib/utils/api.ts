@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import type { Message } from "../types/chat";
+import type { BackendResponse, Message } from "../types/chat";
 import { addMessage, userInput } from "../stores/chatStore";
 
 const API_BASE =
@@ -15,12 +15,29 @@ export const askQuestion = async () => {
 
   let backendResponse: Message;
   try {
-    const response: string = await callServer();
-    backendResponse = {
-      text: response,
-      type: "text",
-      speaker: "backend",
-    };
+    const response: Message = await callServer();
+
+    switch (response.type) {
+      case "text":
+      case "html":
+        backendResponse = {
+          type: response.type,
+          text: response.text,
+          speaker: "backend",
+        };
+        break;
+      case "transcript":
+        backendResponse = {
+          type: "transcript",
+          transcript: response.transcript,
+          speaker: "backend",
+        };
+        break;
+
+      default:
+        console.log("Unexpected response", response);
+        break;
+    }
   } catch (error) {
     backendResponse = {
       text: error.message,
@@ -49,15 +66,10 @@ export const callServer = async () => {
     body,
   });
 
-  const json_response = (await response.json()) as {
-    text: string;
-    error?: { message: string };
-  };
+  const json_response = (await response.json()) as BackendResponse;
 
   if (response.status >= 200 && response.status <= 299) {
-    return json_response.text
-      .replace(/&amp;#39;/g, "'")
-      .replace(/&amp;quot;/g, '"');
+    return json_response.res;
   } else {
     throw new Error(json_response.error.message);
   }
