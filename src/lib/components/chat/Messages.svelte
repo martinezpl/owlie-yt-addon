@@ -1,5 +1,8 @@
 <script lang="ts">
   import { afterUpdate } from "svelte";
+
+  import Transcript from "./Transcript.svelte";
+
   import { conversationHistory } from "../../stores/chatStore";
 
   let msgsContainer: HTMLDivElement;
@@ -18,11 +21,7 @@
       {:else if msg.type === "html"}
         {@html msg.text}
       {:else if msg.type === "transcript"}
-        <!-- 
-        TODO: parse message, create Transcription component. 
-        May need some backend refactor 
-        -->
-        {msg.transcript}
+        <Transcript transcript={msg.transcript} />
       {/if}
     </div>
   {/each}
