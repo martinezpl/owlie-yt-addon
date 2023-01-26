@@ -28,24 +28,25 @@ export const askQuestion = async () => {
         break;
       case "transcript":
         backendResponse = {
-          type: "transcript",
+          type: response.type,
           transcript: response.transcript,
           speaker: "backend",
         };
         break;
-
       default:
         console.log("Unexpected response", response);
         break;
     }
+    addMessage(backendResponse);
   } catch (error) {
     backendResponse = {
       text: error.message,
       type: "text",
       speaker: "backend",
     };
+    addMessage(backendResponse);
+    throw new Error(error);
   }
-  addMessage(backendResponse);
 };
 
 export const callServer = async () => {
