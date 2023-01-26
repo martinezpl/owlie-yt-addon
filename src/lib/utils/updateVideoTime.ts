@@ -6,6 +6,6 @@ export const updateVideoTime = (startTime: number) => {
     ytPlayer.currentTime = startTime;
     ytPlayer.play();
   } catch (err) {
-    console.debug(err);
+    console.debug(err.message);
   }
 };
