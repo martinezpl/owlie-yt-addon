@@ -5,9 +5,9 @@ import { addMessage, userInput } from "../stores/chatStore";
 const API_BASE =
   "https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/";
 
-export const askQuestion = async () => {
+export const askQuestion = async (question: string) => {
   const userMessage: Message = {
-    text: get(userInput),
+    text: question,
     type: "text",
     speaker: "user",
   };
@@ -15,7 +15,7 @@ export const askQuestion = async () => {
 
   let backendResponse: Message;
   try {
-    const response: Message = await callServer();
+    const response: Message = await callServer(question);
 
     switch (response.type) {
       case "text":
@@ -49,10 +49,10 @@ export const askQuestion = async () => {
   }
 };
 
-export const callServer = async () => {
+export const callServer = async (question: string) => {
   const body = JSON.stringify({
     url: location.href,
-    question: get(userInput).replace("\n", ""),
+    question: question.replace("\n", ""),
   });
 
   const response = await fetch(API_BASE, {

@@ -11,10 +11,10 @@
     if (e.code === "Enter") {
       // send to the server
       $owlyCurrentState = "loading";
-      void askQuestion()
+      void askQuestion($userInput)
         .then(() => ($owlyCurrentState = "ready"))
-        .catch(() => ($owlyCurrentState = "error"))
-        .finally(() => ($userInput = ""));
+        .catch(() => ($owlyCurrentState = "error"));
+      $userInput = "";
     }
   };
 
