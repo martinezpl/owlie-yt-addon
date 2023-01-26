@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { afterUpdate } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
 
   import Transcript from "./Transcript.svelte";
 
   import { conversationHistory } from "../../stores/chatStore";
 
   let msgsContainer: HTMLDivElement;
+
+  onMount(() => {
+    /* Add a small timeut so everytime we load the component, the content is scrolled 
+    down to the bottom before seing the smooth scrolling */
+    setTimeout(() => (msgsContainer.style.scrollBehavior = "smooth"), 50);
+  });
 
   afterUpdate(() => {
     // Will scroll chat after a new message is added
@@ -32,7 +38,7 @@
     width: 100%;
     height: 80%;
     overflow-y: scroll;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     background-color: rgb(var(--background), 0.2);
     color: rgb(var(--body));
     font-size: 125%;
