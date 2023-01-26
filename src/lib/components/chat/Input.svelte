@@ -25,11 +25,13 @@
 
 <style>
   textarea {
-    position: absolute;
-    bottom: 1%;
+    font-size: small;
+    background-color: white;
+    border-radius: 5px;
+    border: none;
     margin-left: 5%;
-    width: 85%;
-    height: 50px;
+    width: 89%;
+    height: auto;
     resize: none;
   }
 </style>

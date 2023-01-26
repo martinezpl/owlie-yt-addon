@@ -29,15 +29,13 @@
     min-width: 300px;
     max-width: 100%;
     height: 45%;
-    right: 4%;
+    right: 8%;
     bottom: 1%;
     z-index: 2301;
     background-color: rgb(var(--background), 0.7);
     color: rgb(var(--body));
     border: none;
-    border-radius: 1em;
-    border-bottom-right-radius: 2.4em;
-    padding-bottom: 1em;
+    border-radius: 1em 1em 0em 1em;
     resize: none;
   }
 </style>
