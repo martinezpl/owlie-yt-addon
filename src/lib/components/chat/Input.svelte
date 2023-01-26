@@ -1,5 +1,7 @@
 <script lang="ts">
   import { userInput } from "../../stores/chatStore";
+  import { owlyCurrentState } from "../../stores/toggleStore";
+
   import { askQuestion } from "../../utils/api";
 
   const placeholder =
@@ -8,9 +10,11 @@
   const handleKeypress = (e: KeyboardEvent) => {
     if (e.code === "Enter") {
       // send to the server
+      $owlyCurrentState = "loading";
       void askQuestion()
-        .then(() => ($userInput = ""))
-        .catch(() => ($userInput = ""));
+        .then(() => ($owlyCurrentState = "ready"))
+        .catch(() => ($owlyCurrentState = "error"))
+        .finally(() => ($userInput = ""));
     }
   };
 
