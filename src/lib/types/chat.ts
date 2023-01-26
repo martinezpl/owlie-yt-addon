@@ -1,5 +1,5 @@
 export type Message = {
   text: string;
-  type: "text" | "transcript";
+  type: "text" | "transcript" | "html";
   speaker: "user" | "backend";
 };

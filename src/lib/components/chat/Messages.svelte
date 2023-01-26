@@ -1,39 +1,43 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
-  import { backIn, backOut } from "svelte/easing";
-
+  import { afterUpdate } from "svelte";
   import { conversationHistory } from "../../stores/chatStore";
+
+  let msgsContainer: HTMLDivElement;
+
+  afterUpdate(() => {
+    // Will scroll chat after a new message is added
+    msgsContainer.scrollTop = msgsContainer.scrollHeight;
+  });
 </script>
 
-<div
-  class="container"
-  in:fly={{ x: 200, duration: 400, easing: backOut }}
-  out:fly={{ x: 200, duration: 400, easing: backIn }}
->
+<div class="msgs-container" bind:this={msgsContainer}>
   {#each $conversationHistory as { text, type, speaker }}
-    {#if type === "text"}
-      <div class="msg {speaker}">{text}</div>
-    {:else if type === "transcript"}
-      <!-- TODO: parse message, create Transcription component -->
-      <div class="msg {speaker}">{text}</div>
-    {/if}
+    <div class="msg {speaker}">
+      {#if type === "text"}
+        {text}
+      {:else if type === "html"}
+        {@html text}
+      {:else if type === "transcript"}
+        <!-- 
+        TODO: parse message, create Transcription component. 
+        May need some backend refactor 
+        -->
+        {text}
+      {/if}
+    </div>
   {/each}
 </div>
 
 <style>
-  .container {
-    position: fixed;
-    width: 20%;
-    height: 45%;
-    right: 4%;
-    bottom: 1%;
-    z-index: 2301;
-    background-color: rgb(var(--background), 0.7);
+  .msgs-container {
+    width: 100%;
+    height: 80%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    background-color: rgb(var(--background), 0.2);
     color: rgb(var(--body));
-    border: none;
-    border-radius: 1em;
-    border-bottom-right-radius: 2.4em;
-    padding-bottom: 1em;
+    font-size: 125%;
+    margin-top: 2%;
     resize: none;
   }
 
