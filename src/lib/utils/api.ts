@@ -1,5 +1,5 @@
 import { get } from "svelte/store";
-import type { BackendResponse, Message } from "../types/chat";
+import type { BackendResponse, Message } from "../types/chatTypes";
 import { addMessage, userInput } from "../stores/chatStore";
 
 const API_BASE =

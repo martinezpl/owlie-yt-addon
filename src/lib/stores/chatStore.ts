@@ -1,5 +1,5 @@
 import { get, Writable, writable } from "svelte/store";
-import type { Message } from "../types/chat";
+import type { Message } from "../types/chatTypes";
 
 export const isChatVisible: Writable<boolean> = writable<boolean>(false);
 export const conversationHistory: Writable<Array<Message>> = writable([]);

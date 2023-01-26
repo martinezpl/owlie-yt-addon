@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TranscriptNode } from "../../types/chat";
+  import type { TranscriptNode } from "../../types/chatTypes";
 
   import { updateVideoTime } from "../../utils/updateVideoTime";
 
