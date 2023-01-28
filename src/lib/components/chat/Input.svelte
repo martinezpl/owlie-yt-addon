@@ -30,8 +30,8 @@
     border-radius: 5px;
     border: none;
     margin-left: 5%;
+    height: 15%;
     width: 89%;
-    height: auto;
     resize: none;
   }
 </style>
