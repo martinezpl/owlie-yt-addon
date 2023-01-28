@@ -53,6 +53,6 @@
     z-index: 2302;
     cursor: pointer;
     box-shadow: 0 2px 14px -10px rgba(0, 0, 0, 0.5);
-    object-fit: scale-down;
+    object-fit: contain;
   }
 </style>
