@@ -79,22 +79,15 @@ export function xmlToText(xml) {
 }
 
 //** Turn XML subtitles into a span tags with text and timestamp encoded */
-export function xmlToSpanTags(xml) {
+export function constructTranscriptNodes(xml) {
   let textTags = xml.match(/<text[^>]*>([\s\S]*?)<\/text>/g);
 
-  let html = '';
-  let count = 0;
+  let transcriptNodes = [];
   textTags.forEach((tag) => {
-    let startValue = tag.match(/start="([^"]*)"/)[1];
-    let text = tag.match(/>([\s\S]*?)</)[1];
-    count += text.split(' ').length;
-    html +=
-      ' ' +
-      `<span class="timestampText" data-start="${startValue}">${text}</span>`;
-    if (count > 100) {
-      html += '<br><br>';
-      count = 0;
-    }
+    transcriptNodes.push({
+      text: tag.match(/>([\s\S]*?)</)[1],
+      dataStart: tag.match(/start="([^"]*)"/)[1],
+    });
   });
-  return html;
+  return transcriptNodes;
 }

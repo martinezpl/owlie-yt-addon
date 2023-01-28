@@ -23,9 +23,9 @@
   {#each $conversationHistory as msg}
     <div class="msg {msg.speaker}">
       {#if msg.type === "text"}
-        {msg.text}
+        {msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
       {:else if msg.type === "html"}
-        {@html msg.text}
+        {@html msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
       {:else if msg.type === "transcript"}
         <Transcript transcript={msg.transcript} />
       {/if}

@@ -3,7 +3,7 @@ import {
   getAvailableTranscripts,
   fetchTranscript,
   xmlToText,
-  xmlToSpanTags,
+  constructTranscriptNodes,
 } from './modules/transcript.mjs';
 
 import settings from './modules/settings.json' assert { type: 'json' };
@@ -37,7 +37,11 @@ export async function handler(event, context) {
   if (body.question == '/help') {
     return {
       statusCode: 200,
-      body: JSON.stringify({ text: getHelpMessage() }),
+      body: JSON.stringify({
+        type: 'html',
+        text: getHelpMessage(),
+        speaker: 'backend',
+      }),
     };
   }
 
@@ -59,7 +63,9 @@ export async function handler(event, context) {
       return {
         statusCode: 200,
         body: JSON.stringify({
-          text: xmlToSpanTags(transcriptCache[body.url][lang]),
+          type: 'transcript',
+          transcript: constructTranscriptNodes(transcriptCache[body.url][lang]),
+          speaker: 'backend',
         }),
       };
     } else if (body.question == '/s') {
@@ -69,19 +75,21 @@ export async function handler(event, context) {
       let captions = availableTranscript.captionTracks;
       let html = '';
       for (let i = 0; i < captions.length; i++) {
-        html += `${captions[i].languageCode.split('-')[0]}: ${
+        html += `<b>${captions[i].languageCode.split('-')[0]}</b>: ${
           languageCodes[captions[i].languageCode.split('-')[0]]
         }<br>`;
       }
       return {
         statusCode: 200,
-        body: JSON.stringify({ text: html }),
+        body: JSON.stringify({ type: 'html', text: html, speaker: 'backend' }),
       };
     } else if (body.question.startsWith('/')) {
       return {
         statusCode: 400,
         body: JSON.stringify({
+          type: 'html',
           text: "I don't recognize this command.\n" + getHelpMessage(),
+          speaker: 'backend',
         }),
       };
     }
@@ -94,7 +102,11 @@ export async function handler(event, context) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ text: gptResponse }),
+      body: JSON.stringify({
+        type: 'text',
+        text: gptResponse,
+        speaker: 'backend',
+      }),
     };
   } catch (err) {
     let msg = err.message;
@@ -105,7 +117,7 @@ export async function handler(event, context) {
     }
     return {
       statusCode: 400,
-      body: JSON.stringify({ text: msg }),
+      body: JSON.stringify({ type: 'text', text: msg, speaker: 'backend' }),
     };
   }
 }
