@@ -52,14 +52,14 @@
     margin: 5%;
   }
 
-  .msg.user {
-    background-color: rgba(119, 122, 193, 0.8);
+  .msg.backend {
+    background-color: rgba(54, 60, 248, 0.8);
     margin-left: 10%;
     border-radius: 1em 1em 0 1em;
   }
 
-  .msg.backend {
-    background-color: rgba(54, 60, 248, 0.8);
+  .msg.user {
+    background-color: rgba(119, 122, 193, 0.8);
     margin-right: 10%;
     border-radius: 1em 1em 1em 0;
   }

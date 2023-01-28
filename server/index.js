@@ -73,7 +73,7 @@ export async function handler(event, context) {
       body.question = '';
     } else if (body.question == '/lang') {
       let captions = availableTranscript.captionTracks;
-      let html = '';
+      let html = 'Available languages:<br>';
       for (let i = 0; i < captions.length; i++) {
         html += `<b>${captions[i].languageCode.split('-')[0]}</b>: ${
           languageCodes[captions[i].languageCode.split('-')[0]]
