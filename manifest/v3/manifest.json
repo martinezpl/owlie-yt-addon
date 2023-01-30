@@ -24,7 +24,7 @@
     "48": "icons/icon-1.png"
   },
 
-  "host_permissions": ["https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"],
+  "host_permissions": ["https://ons6nbp1sc.execute-api.eu-west-1.amazonaws.com/"],
   "permissions": [
     "webRequest",
     "storage"

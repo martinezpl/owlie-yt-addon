@@ -2,7 +2,7 @@ import type { Message } from "../types/chatTypes";
 import { addMessage } from "../stores/chatStore";
 
 const API_BASE =
-  "https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/";
+  "https://ons6nbp1sc.execute-api.eu-west-1.amazonaws.com/production";
 
 export const askQuestion = async (question: string) => {
   const userMessage: Message = {
@@ -12,18 +12,18 @@ export const askQuestion = async (question: string) => {
   };
   addMessage(userMessage);
 
-  const message: Message = await callServer(question);
+  const message: Message = await askServer(question);
 
   addMessage(message);
 };
 
-export const callServer = async (question: string) => {
+export const askServer = async (question: string) => {
   const body = JSON.stringify({
     url: location.href,
     question: question.replace("\n", ""),
   });
 
-  const response = await fetch(API_BASE, {
+  const response = await fetch(API_BASE + "/ask", {
     method: "POST",
     mode: "cors",
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -35,5 +35,7 @@ export const callServer = async (question: string) => {
     body: body,
   });
 
-  return (await response.json()) as Message;
+  let msg = (await response.json()) as Message;
+  msg.speaker = 'backend';
+  return msg
 };

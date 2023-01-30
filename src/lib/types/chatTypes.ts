@@ -1,5 +1,5 @@
 interface MessageBase {
-  speaker: "user" | "backend";
+  speaker?: "user" | "backend";
 }
 
 interface HtmlMessage extends MessageBase {
@@ -22,7 +22,12 @@ interface TextMessage extends MessageBase {
   type: "text";
 }
 
-export type Message = HtmlMessage | TranscriptMessage | TextMessage;
+interface ErrorMessage extends MessageBase {
+  text: string;
+  type: "error";
+}
+
+export type Message = HtmlMessage | TranscriptMessage | TextMessage | ErrorMessage;
 
 export type BackendResponse = {
   res: Message;

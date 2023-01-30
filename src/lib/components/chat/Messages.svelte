@@ -21,8 +21,8 @@
 
 <div class="msgs-container" bind:this={msgsContainer}>
   {#each $conversationHistory as msg}
-    <div class="msg {msg.speaker}">
-      {#if msg.type === "text"}
+    <div class="msg {msg.speaker} {msg.type}">
+      {#if msg.type === "text" || msg.type === "error"}
         {msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
       {:else if msg.type === "html"}
         {@html msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
@@ -62,5 +62,9 @@
     background-color: rgba(119, 122, 193, 0.8);
     margin-right: 10%;
     border-radius: 1em 1em 1em 0;
+  }
+
+  .msg.backend.error {
+    background-color:rgba(202, 71, 71, 0.8)
   }
 </style>

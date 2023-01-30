@@ -23,7 +23,7 @@
   "permissions": [
     "webRequest",
     "storage",
-    "https://qklzaxu7sazzq4xxw7qggrye7y0lxyhs.lambda-url.eu-west-1.on.aws/"
+    "https://ons6nbp1sc.execute-api.eu-west-1.amazonaws.com/"
   ],
 
   "browser_action": {
