@@ -1,4 +1,4 @@
-// CHANGE "BROWSER" TO "CHROME" WHEN CHROME
+import browser from 'webextension-polyfill';
 
 async function installHook(info) {
   console.log(info);
@@ -12,7 +12,7 @@ async function installHook(info) {
     }
   );
   let json = await response.json();
-  console.log(json);
+
   await browser.storage.local.set({ 'owlie-id': json.code });
   await browser.storage.sync.set({ 'owlie-id': json.code });
 

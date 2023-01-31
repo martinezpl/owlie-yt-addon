@@ -27,3 +27,4 @@ OUTPUT_DIR=dist
 
 npm run build
 cp $MANIFEST_PATH $OUTPUT_DIR/manifest.json
+cp src/background.js $OUTPUT_DIR/assets/background.js
