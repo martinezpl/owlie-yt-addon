@@ -1,8 +1,9 @@
 import type { Message } from "../types/chatTypes";
 import { addMessage } from "../stores/chatStore";
+import { owlieId } from "../stores/idStore";
 
 const API_BASE =
-  "https://ons6nbp1sc.execute-api.eu-west-1.amazonaws.com/production";
+  "https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production";
 
 export const askQuestion = async (question: string) => {
   const userMessage: Message = {
@@ -31,6 +32,7 @@ export const askServer = async (question: string) => {
 
     headers: {
       "Content-Type": "application/json",
+      "x-owlie-code": (await owlieId)["owlie-id"]
     },
     body: body,
   });

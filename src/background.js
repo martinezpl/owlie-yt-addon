@@ -15,7 +15,7 @@ async function installHook(info) {
 
   await browser.storage.local.set({ 'owlie-id': json.code });
   await browser.storage.sync.set({ 'owlie-id': json.code });
-
+  console.log(json);
   browser.runtime.setUninstallURL(
     // OPENS IN NEW TAB ...
     'https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production/out?code=' +
