@@ -1,22 +1,15 @@
 <script lang="ts">
   import { isChatVisible } from "../../stores/chatStore";
   import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
+  import browser from 'webextension-polyfill';
 
   const imgSrcBase = "icons/icon-1-";
 
-  const polifillImg = (img: string) => {
-    // At build time this will be replaced by chrome.runtime.getURL(imgSrcBase + img)
-    // nasty hack
-    return (
-      "__REPLACE_WITH_CHROME__" + imgSrcBase + img + "__CLOSING_PARENTESIS__"
-    );
-  };
-
   const owlyStateImgs = {
-    error: polifillImg("error.png"),
-    ready: polifillImg("ready.png"),
-    steady: polifillImg("steady.png"),
-    loading: polifillImg("loading.gif"),
+    error: browser.runtime.getURL(imgSrcBase + "error.png"),
+    ready: browser.runtime.getURL(imgSrcBase + "ready.png"),
+    steady: browser.runtime.getURL(imgSrcBase + "steady.png"),
+    loading: browser.runtime.getURL(imgSrcBase + "loading.gif"),
   };
 
   const observer = new MutationObserver(() => {
