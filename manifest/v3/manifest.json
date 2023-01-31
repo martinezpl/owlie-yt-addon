@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "Owlie Youtube assistant",
   "version": "1.0",
-  "author": "royfish@proton.me",
+  "author": "owliext@gmail.com",
+  "background": {"service_worker": "assets/background.js"},
 
   "content_scripts": [
     {
@@ -24,9 +25,10 @@
     "48": "icons/icon-1.png"
   },
 
-  "host_permissions": ["https://ons6nbp1sc.execute-api.eu-west-1.amazonaws.com/"],
+  "host_permissions": ["https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/"],
   "permissions": [
     "webRequest",
-    "storage"
+    "storage",
+    "management"
   ]
 }
