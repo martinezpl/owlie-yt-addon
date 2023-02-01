@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isChatVisible } from "../../stores/chatStore";
   import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
-  import browser from 'webextension-polyfill';
+  import browser from "webextension-polyfill";
 
   const imgSrcBase = "icons/icon-1-";
 
@@ -21,7 +21,11 @@
     }
   });
 
-  observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+  observer.observe(document.body, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  });
 </script>
 
 {#if $isToggleVisible}
