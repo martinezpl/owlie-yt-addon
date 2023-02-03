@@ -1,32 +1,15 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
-const buildScript = process.env.npm_lifecycle_event;
+const buildScript: string = process.env.npm_lifecycle_event;
 
-let buildConfig: { rootHtml: any; entryFileNames: any; assetFileNames: any };
-switch (buildScript) {
-  case "build:popup":
-    buildConfig = {
-      rootHtml: "./popup.html",
-      entryFileNames: "popup/[name].js",
-      assetFileNames: "popup/[name].[ext]",
-    };
-    break;
-  case "build:background":
-    buildConfig = {
-      rootHtml: "./background.html",
-      entryFileNames: "background/[name].js",
-      assetFileNames: "background/[name].[ext]",
-    };
-    break;
-  default:
-    buildConfig = {
-      rootHtml: "./app.html",
-      entryFileNames: "app/[name].js",
-      assetFileNames: "app/[name].[ext]",
-    };
-    break;
-}
+const app = buildScript.includes(":") ? buildScript.split(":")[1] : "app";
+
+const buildConfig = {
+  rootHtml: `./${app}.html`,
+  entryFileNames: `${app}/${app}.js`,
+  assetFileNames: `${app}/${app}.[ext]`,
+};
 
 export default defineConfig({
   plugins: [svelte()],
