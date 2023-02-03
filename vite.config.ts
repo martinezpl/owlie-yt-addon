@@ -1,17 +1,44 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
-const production = process.env.NODE_ENV === "production";
+const buildScript = process.env.npm_lifecycle_event;
 
-// https://vitejs.dev/config/
+let buildConfig: { rootHtml: any; entryFileNames: any; assetFileNames: any };
+switch (buildScript) {
+  case "build:popup":
+    buildConfig = {
+      rootHtml: "./popup.html",
+      entryFileNames: "popup/[name].js",
+      assetFileNames: "popup/[name].[ext]",
+    };
+    break;
+  case "build:background":
+    buildConfig = {
+      rootHtml: "./background.html",
+      entryFileNames: "background/[name].js",
+      assetFileNames: "background/[name].[ext]",
+    };
+    break;
+  default:
+    buildConfig = {
+      rootHtml: "./app.html",
+      entryFileNames: "app/[name].js",
+      assetFileNames: "app/[name].[ext]",
+    };
+    break;
+}
+
 export default defineConfig({
   plugins: [svelte()],
   build: {
     rollupOptions: {
+      input: { app: buildConfig.rootHtml },
       output: {
-        entryFileNames: "assets/[name].js",
-        assetFileNames: "assets/[name].[ext]",
+        entryFileNames: buildConfig.entryFileNames,
+        assetFileNames: buildConfig.assetFileNames,
       },
     },
+    emptyOutDir: false,
   },
+  server: { open: buildConfig.rootHtml },
 });
