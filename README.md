@@ -8,7 +8,7 @@ Owlie is a browser extension that generates video summaries and descriptive work
 1. Clone this repository.
 2. `cd owlie-yt-addon`
 3. install dependencies `pnpm install`
-4. build the extension `pnpm run build`. The `dist` directory will contain the extension's bundle.
+4. build the extension `pnpm build:all`. The `dist` directory will contain the extension's bundle.
 5. Add your desired manifest to the `dist` directory. For example `cp manifest/v2/manifest.json dist/manifest.json`
 
 
@@ -36,7 +36,7 @@ https://user-images.githubusercontent.com/64603095/213948302-bef8d776-051c-4879-
 ## Local development
 
 1. npm install --global web-ext
-2. copy your desired manifest from the `manifest` directory into `src`. Example: `cp manifest/v2/manifest.json src/manifest.json`
+2. copy your desired manifest from the `manifest` directory into `dist`. Example: `cp manifest/v2/manifest.json dist/`
 3. `pnpm run dev`. 
 
 ## Known issues, things to improve
