@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getId, setId } from '../app/stores/idStore';
+  import { getFromStorage, setToStorage } from '../shared/storage';
   let id = null;
   let isLocked = true;
 
@@ -14,12 +14,12 @@
   }
 
   async function loadId() {
-    id = await getId();
+    id = await getFromStorage('owlie-id');
   }
 
   function toggleLock() {
     if (!isLocked) {
-      setId(id);
+      setToStorage([{ 'owlie-id': id }]);
     }
     isLocked = !isLocked;
   }
