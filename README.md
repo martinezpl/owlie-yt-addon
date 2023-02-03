@@ -6,20 +6,22 @@ Owlie is a browser extension that generates video summaries and descriptive work
 ## Local installation
 
 1. Clone this repository.
-2. run `./build.sh BROWSER MANIFEST_VERSION` 
+2. `cd owlie-yt-addon`
+3. install dependencies `pnpm install`
+4. build the extension `pnpm build:all`. The `dist` directory will contain the extension's bundle.
+5. Add your desired manifest to the `dist` directory. For example `cp manifest/v2/manifest.json dist/manifest.json`
 
-If we do not have the specific manifest, feel free to create it and send a PR.
 
 ### Firefox
 
 1. Go to this address: `about:debugging#/runtime/this-firefox`
 2. Click `Load Temporary Add-on...`
-3. Select `manifest.json` in the `dist/v2/firefox` directory
+3. Select `manifest.json` in the `dist` directory
 
 ### Chrome
 
 1. Go to this address: `chrome://extensions/`
-2. Drag `dist/v3/chrome` directory into Chrome's window
+2. Drag `dist/` directory into Chrome's window
 
 ## How to use
 
@@ -34,11 +36,8 @@ https://user-images.githubusercontent.com/64603095/213948302-bef8d776-051c-4879-
 ## Local development
 
 1. npm install --global web-ext
-2. copy your desired manifest from the `manifest` directory into `app`. Example: `cp manifest/v2/firefox.json app/manifest.json`
-3. cd `app`
-4. web-ext run --target chromium / firefox-desktop
-
-This will open a browser window with the plugin loaded and any changes will be dynamically reloaded.
+2. copy your desired manifest from the `manifest` directory into `dist`. Example: `cp manifest/v2/manifest.json dist/`
+3. `pnpm run dev`. 
 
 ## Known issues, things to improve
 

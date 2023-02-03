@@ -1,19 +1,11 @@
 #!/bin/bash
 
-BROWSER=$1
-MANIFEST_VERSION=$2
+MANIFEST_VERSION=$1
 
 show_usage () {
     echo "Usage:"
-    echo "  ./build.sh BROWSER MANIFEST_VERSION"
+    echo "  ./build.sh MANIFEST_VERSION"
 }
-
-if [ -z "$BROWSER" ];
-then
-    echo "No browser specified. Please select one."
-    show_usage
-    exit 0
-fi
 
 if [ -z "$MANIFEST_VERSION" ];
 then
@@ -22,7 +14,7 @@ then
     exit 0
 fi
 
-MANIFEST_PATH=manifest/$MANIFEST_VERSION/$BROWSER.json
+MANIFEST_PATH=manifest/$MANIFEST_VERSION/manifest.json
 
 if [ ! -f $MANIFEST_PATH ]; then
     echo "Manifest not found. You can create one and place it in $MANIFEST_PATH."
@@ -30,9 +22,8 @@ if [ ! -f $MANIFEST_PATH ]; then
 fi
 
 
-OUTPUT_DIR=dist/$MANIFEST_VERSION/$BROWSER
+OUTPUT_DIR=dist
 
 
-mkdir -p $OUTPUT_DIR
-cp -r app/* $OUTPUT_DIR
+npm run build
 cp $MANIFEST_PATH $OUTPUT_DIR/manifest.json
