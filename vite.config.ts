@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
-const buildScript: string = process.env.npm_lifecycle_event;
+const buildScript = process.env.npm_lifecycle_event;
 
 const app = buildScript.includes(":") ? buildScript.split(":")[1] : "app";
 
