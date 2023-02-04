@@ -1,4 +1,5 @@
-# ![owlie-1](https://user-images.githubusercontent.com/64603095/216782838-459ef64d-6065-46d4-b535-26d6611a4aa3.png) Owlie - smart Youtube assistant
+# ![icon-1](https://user-images.githubusercontent.com/64603095/216782866-7c19a5bc-ade7-41ee-ab51-f8399684c8b9.png) Owlie - smart Youtube assistant
+
 
 
 Owlie is a browser extension that generates video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc.
