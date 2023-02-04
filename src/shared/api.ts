@@ -1,13 +1,15 @@
+__HASH_FUNCTION__;
+
 export async function callAPI(
   path: string,
   id?: string,
   body?: BodyInit
-): Promise<any> {
+): Promise<Response> {
   let params: RequestInit = {
     mode: 'cors',
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
-    headers: { 'x-owlie-code': id || '', 'x-token': '__HASH_FUNCTION__' },
+    headers: { 'x-owlie-code': id || '', 'x-token': __GET_HASH__ },
   };
   if (body) {
     params.body = body;

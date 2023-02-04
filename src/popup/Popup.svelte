@@ -1,14 +1,13 @@
 <script lang="ts">
-  import App from '../App.svelte';
   import { getFromStorage, setToStorage } from '../shared/storage';
-  import { callApi } from '../shared/api';
+  import { callAPI } from '../shared/api';
   let id = null;
   let isLocked = true;
   let isLoading = false;
 
   async function regenerateCode() {
     isLoading = true;
-    let response = await callApi('/regenerate', id);
+    let response = await callAPI('/regenerate', id);
     let body = await response.json();
     if (body.code) {
       setToStorage({ 'owlie-id': body.code });
