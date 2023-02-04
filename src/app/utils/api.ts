@@ -1,6 +1,6 @@
 import type { Message } from "../types/chatTypes";
 import { addMessage } from "../stores/chatStore";
-import { owlieId } from "../stores/idStore";
+import { getFromStorage } from "../../shared/storage";
 
 const API_BASE =
   "https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production";
@@ -32,7 +32,7 @@ export const askServer = async (question: string) => {
 
     headers: {
       "Content-Type": "application/json",
-      "x-owlie-code": (await owlieId)["owlie-id"]
+      "x-owlie-code": (await getFromStorage("owlie-id"))
     },
     body: body,
   });
