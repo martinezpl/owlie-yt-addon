@@ -1,16 +1,24 @@
 <script lang="ts">
+  import type { readable } from 'svelte/store';
   import { getFromStorage, setToStorage } from '../shared/storage';
   let id = null;
   let isLocked = true;
+  let isLoading = false;
 
-  function regenerateCode() {
-    fetch('http://localhost/')
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error('Error regenerating code:', error);
-      });
+  async function regenerateCode() {
+    isLoading = true;
+    let response = await fetch(
+      'https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production/regenerate',
+      {
+        headers: { 'x-owlie-code': id },
+      }
+    );
+    let body = await response.json();
+    if (body.code) {
+      setToStorage({ 'owlie-id': body.code });
+      id = body.code;
+    }
+    isLoading = false;
   }
 
   async function loadId() {
@@ -19,7 +27,7 @@
 
   function toggleLock() {
     if (!isLocked) {
-      setToStorage([{ 'owlie-id': id }]);
+      setToStorage({ 'owlie-id': id });
     }
     isLocked = !isLocked;
   }
@@ -46,6 +54,13 @@
       <!-- svelte-ignore a11y-invalid-attribute -->
       <a class="regen" href="#" on:click={regenerateCode}>Regenerate code</a>
     </small>
+    <img
+      class="itsy-bitsy-spinner"
+      src="icons/loading.gif"
+      alt=""
+      hidden={!isLoading}
+      height="10px"
+    />
     <br />
     <br />
     <p>
