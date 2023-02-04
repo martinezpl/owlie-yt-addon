@@ -1,15 +1,13 @@
-import type { Message } from "../types/chatTypes";
-import { addMessage } from "../stores/chatStore";
-import { getFromStorage } from "../../shared/storage";
-
-const API_BASE =
-  "https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production";
+import type { Message } from '../types/chatTypes';
+import { addMessage } from '../stores/chatStore';
+import { getFromStorage } from '../../shared/storage';
+import { callAPI } from '../../shared/api';
 
 export const askQuestion = async (question: string) => {
   const userMessage: Message = {
     text: question,
-    type: "text",
-    speaker: "user",
+    type: 'text',
+    speaker: 'user',
   };
   addMessage(userMessage);
 
@@ -21,23 +19,16 @@ export const askQuestion = async (question: string) => {
 export const askServer = async (question: string) => {
   const body = JSON.stringify({
     url: location.href,
-    question: question.replace("\n", ""),
+    question: question.replace('\n', ''),
   });
 
-  const response = await fetch(API_BASE + "/ask", {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-
-    headers: {
-      "Content-Type": "application/json",
-      "x-owlie-code": (await getFromStorage("owlie-id"))
-    },
-    body: body,
-  });
+  const response = await callAPI(
+    '/ask',
+    await getFromStorage('owlie-id'),
+    body
+  );
 
   let msg = (await response.json()) as Message;
   msg.speaker = 'backend';
-  return msg
+  return msg;
 };

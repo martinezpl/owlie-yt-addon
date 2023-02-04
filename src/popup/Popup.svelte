@@ -1,18 +1,14 @@
 <script lang="ts">
-  import type { readable } from 'svelte/store';
+  import App from '../App.svelte';
   import { getFromStorage, setToStorage } from '../shared/storage';
+  import { callApi } from '../shared/api';
   let id = null;
   let isLocked = true;
   let isLoading = false;
 
   async function regenerateCode() {
     isLoading = true;
-    let response = await fetch(
-      'https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production/regenerate',
-      {
-        headers: { 'x-owlie-code': id },
-      }
-    );
+    let response = await callApi('/regenerate', id);
     let body = await response.json();
     if (body.code) {
       setToStorage({ 'owlie-id': body.code });

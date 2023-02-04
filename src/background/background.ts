@@ -1,25 +1,17 @@
-import browser from "webextension-polyfill";
+import browser from 'webextension-polyfill';
+import { callAPI } from '../shared/api';
 
 async function installHook(info: any) {
   console.log(info);
-  let response = await fetch(
-    "https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production/generate",
-    {
-      method: "GET",
-      mode: "cors",
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-    }
-  );
+  let response = await callAPI('/generate');
   let json = await response.json();
 
-  await browser.storage.local.set({ "owlie-id": json.code });
-  await browser.storage.sync.set({ "owlie-id": json.code });
+  await browser.storage.local.set({ 'owlie-id': json.code });
+  await browser.storage.sync.set({ 'owlie-id': json.code });
   console.log(json);
   browser.runtime.setUninstallURL(
     // OPENS IN NEW TAB ...
-    "https://g9163tkhmf.execute-api.eu-west-1.amazonaws.com/production/out?code=" +
-      json.code
+    '__API_BASE__' + '/out?code=' + json.code
   );
 }
 
