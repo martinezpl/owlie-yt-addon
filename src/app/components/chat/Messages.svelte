@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterUpdate, onMount } from "svelte";
+  import * as DOMPurify from "dompurify";
 
   import Transcript from "./Transcript.svelte";
 
@@ -23,9 +24,13 @@
   {#each $conversationHistory as msg}
     <div class="msg {msg.speaker} {msg.type}">
       {#if msg.type === "text" || msg.type === "error"}
-        {msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
+        {DOMPurify.sanitize(
+          msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')
+        )}
       {:else if msg.type === "html"}
-        {@html msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
+        {@html DOMPurify.sanitize(
+          msg.text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')
+        )}
       {:else if msg.type === "transcript"}
         <Transcript transcript={msg.transcript} />
       {/if}
@@ -65,6 +70,6 @@
   }
 
   .msg.backend.error {
-    background-color:rgba(202, 71, 71, 0.8)
+    background-color: rgba(202, 71, 71, 0.8);
   }
 </style>
