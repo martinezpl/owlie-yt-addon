@@ -39,6 +39,7 @@ export default defineConfig({
         entryFileNames: buildConfig.entryFileNames,
         assetFileNames: buildConfig.assetFileNames,
       },
+      external: ['dompurify'],
     },
     emptyOutDir: false,
   },
