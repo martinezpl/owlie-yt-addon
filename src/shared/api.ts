@@ -1,4 +1,4 @@
-__HASH_FUNCTION__;
+"__HASH_FUNCTION__"; // will get replaced at build time
 
 export async function callAPI(
   path: string,
@@ -9,7 +9,7 @@ export async function callAPI(
     mode: 'cors',
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
-    headers: { 'x-owlie-code': id || '', 'x-token': __GET_HASH__ },
+    headers: { 'x-owlie-code': id || '', 'x-token': "__GET_HASH__" }, // will get replaced at build time
   };
   if (body) {
     params.body = body;

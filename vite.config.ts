@@ -22,11 +22,11 @@ export default defineConfig({
           to: process.env.OWLIE_API_BASE || 'http://localhost:8080',
         },
         {
-          from: '__HASH_FUNCTION__',
+          from: '"__HASH_FUNCTION__"',
           to: process.env.OWLIE_HASH_FUNCTION || '',
         },
         {
-          from: '__GET_HASH__',
+          from: '"__GET_HASH__"',
           to: process.env.OWLIE_GET_HASH || '',
         },
       ],
