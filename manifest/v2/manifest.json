@@ -23,7 +23,6 @@
   "permissions": [
     "webRequest",
     "storage",
-    "management",
     "https://owlie.essa.lol/"
   ],
 

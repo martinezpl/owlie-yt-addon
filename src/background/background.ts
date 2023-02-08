@@ -15,6 +15,4 @@ async function installHook(info: any) {
   );
 }
 
-browser.management.onInstalled.addListener(installHook);
-
-//browser.management.onUninstalled.addListener(uninstallHook); NOT WORKING 4 SUM RIZON
+browser.runtime.onInstalled.addListener(installHook);
