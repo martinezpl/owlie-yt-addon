@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { replaceCodePlugin } from "vite-plugin-replace";
+import { config as configDotenv } from "dotenv";
 
 const buildScript = process.env.npm_lifecycle_event || "";
 
@@ -11,6 +12,9 @@ const buildConfig = {
   entryFileNames: `${app}/${app}.js`,
   assetFileNames: `${app}/${app}.[ext]`,
 };
+
+// load variables from .env
+configDotenv();
 
 export default defineConfig({
   plugins: [
