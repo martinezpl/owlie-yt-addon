@@ -42,13 +42,13 @@
   />
 
   <div class="body">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <img
-      alt="lock"
-      class="lock-icon"
-      on:click={toggleLock}
-      src={isLocked ? "icons/locked.png" : "icons/unlocked.png"}
-    />
+    <button on:click={toggleLock}>
+      <img
+        alt="lock"
+        class="lock-icon"
+        src={isLocked ? "icons/locked.png" : "icons/unlocked.png"}
+      />
+    </button>
     <b>Your code</b>
     <input type="text" bind:value={id} readonly={isLocked} />
     <small>
@@ -103,14 +103,14 @@
     height: 1em;
   }
 
-  .regen {
+  button {
     all: unset;
     color: rgb(0, 0, 0);
+    cursor: pointer;
   }
 
   .regen:hover {
     text-decoration: underline;
-    cursor: pointer;
   }
 
   input[type="text"] {
