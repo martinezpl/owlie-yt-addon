@@ -8,7 +8,7 @@
   let isLocked = true;
   let isLoading = false;
 
-  async function regenerateCode() {
+  const regenerateCode = async () => {
     isLoading = true;
     let response = await callAPI("/regenerate", id);
     let body = await response.json();
@@ -17,18 +17,18 @@
       id = body.code;
     }
     isLoading = false;
-  }
+  };
 
-  async function loadId() {
+  const loadId = async () => {
     id = await getFromStorage("owlie-id");
-  }
+  };
 
-  function toggleLock() {
+  const toggleLock = () => {
     if (!isLocked) {
       setToStorage({ "owlie-id": id });
     }
     isLocked = !isLocked;
-  }
+  };
 
   onMount(() => {
     loadId();
