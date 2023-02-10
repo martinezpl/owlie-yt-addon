@@ -1,32 +1,38 @@
 <script lang="ts">
-  import { getFromStorage, setToStorage } from '../shared/storage';
-  import { callAPI } from '../shared/api';
+  import { onMount } from "svelte";
+
+  import { getFromStorage, setToStorage } from "../shared/storage";
+  import { callAPI } from "../shared/api";
+
   let id = null;
   let isLocked = true;
   let isLoading = false;
 
   async function regenerateCode() {
     isLoading = true;
-    let response = await callAPI('/regenerate', id);
+    let response = await callAPI("/regenerate", id);
     let body = await response.json();
     if (body.code) {
-      setToStorage({ 'owlie-id': body.code });
+      setToStorage({ "owlie-id": body.code });
       id = body.code;
     }
     isLoading = false;
   }
 
   async function loadId() {
-    id = await getFromStorage('owlie-id');
+    id = await getFromStorage("owlie-id");
   }
 
   function toggleLock() {
     if (!isLocked) {
-      setToStorage({ 'owlie-id': id });
+      setToStorage({ "owlie-id": id });
     }
     isLocked = !isLocked;
   }
-  loadId();
+
+  onMount(() => {
+    loadId();
+  });
 </script>
 
 <main>
@@ -41,7 +47,7 @@
       alt="lock"
       class="lock-icon"
       on:click={toggleLock}
-      src={isLocked ? 'icons/locked.png' : 'icons/unlocked.png'}
+      src={isLocked ? "icons/locked.png" : "icons/unlocked.png"}
     />
     <b>Your code</b>
     <input type="text" bind:value={id} readonly={isLocked} />
@@ -80,7 +86,7 @@
     border: 2px;
     border-color: rgb(0, 0, 0);
     background-color: rgb(249, 249, 249);
-    font-family: 'Lato';
+    font-family: "Lato";
     font-size: 0.8em;
   }
 
@@ -102,7 +108,7 @@
     color: rgb(0, 0, 0);
   }
 
-  input[type='text'] {
+  input[type="text"] {
     font-size: 1em;
     width: 380px;
   }
