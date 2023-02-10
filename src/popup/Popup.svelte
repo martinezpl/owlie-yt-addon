@@ -4,7 +4,7 @@
   import { getFromStorage, setToStorage } from "../shared/storage";
   import { callAPI } from "../shared/api";
 
-  let id = null;
+  let id = "";
   let isLocked = true;
   let isLoading = false;
 
