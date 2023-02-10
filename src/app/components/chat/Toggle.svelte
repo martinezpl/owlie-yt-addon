@@ -40,8 +40,8 @@
 <style>
   img {
     position: fixed;
-    right: 0.5%;
-    bottom: 1%;
+    right: 10px;
+    bottom: 10px;
     border-radius: 50%;
     background-color: rgb(var(--background), 0.5);
     width: 50px;
