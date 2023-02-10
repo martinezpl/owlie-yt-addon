@@ -29,5 +29,5 @@
   "host_permissions": [
     "https://owlie.essa.lol/"
   ],
-  "permissions": ["webRequest", "storage", "management"]
+  "permissions": ["webRequest", "storage"]
 }
