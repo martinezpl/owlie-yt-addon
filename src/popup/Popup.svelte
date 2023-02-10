@@ -52,8 +52,7 @@
     <b>Your code</b>
     <input type="text" bind:value={id} readonly={isLocked} />
     <small>
-      <!-- svelte-ignore a11y-invalid-attribute -->
-      <a class="regen" href="#" on:click={regenerateCode}>Regenerate code</a>
+      <button class="regen" on:click={regenerateCode}>Regenerate code</button>
     </small>
     <img
       class="itsy-bitsy-spinner"
@@ -105,7 +104,13 @@
   }
 
   .regen {
+    all: unset;
     color: rgb(0, 0, 0);
+  }
+
+  .regen:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   input[type="text"] {
