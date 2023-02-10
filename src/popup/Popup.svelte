@@ -1,32 +1,38 @@
 <script lang="ts">
-  import { getFromStorage, setToStorage } from '../shared/storage';
-  import { callAPI } from '../shared/api';
-  let id = null;
+  import { onMount } from "svelte";
+
+  import { getFromStorage, setToStorage } from "../shared/storage";
+  import { callAPI } from "../shared/api";
+
+  let id = "";
   let isLocked = true;
   let isLoading = false;
 
-  async function regenerateCode() {
+  const regenerateCode = async () => {
     isLoading = true;
-    let response = await callAPI('/regenerate', id);
+    let response = await callAPI("/regenerate", id);
     let body = await response.json();
     if (body.code) {
-      setToStorage({ 'owlie-id': body.code });
+      setToStorage({ "owlie-id": body.code });
       id = body.code;
     }
     isLoading = false;
-  }
+  };
 
-  async function loadId() {
-    id = await getFromStorage('owlie-id');
-  }
+  const loadId = async () => {
+    id = await getFromStorage("owlie-id");
+  };
 
-  function toggleLock() {
+  const toggleLock = () => {
     if (!isLocked) {
-      setToStorage({ 'owlie-id': id });
+      setToStorage({ "owlie-id": id });
     }
     isLocked = !isLocked;
-  }
-  loadId();
+  };
+
+  onMount(() => {
+    loadId();
+  });
 </script>
 
 <main>
@@ -36,18 +42,17 @@
   />
 
   <div class="body">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <img
-      alt="lock"
-      class="lock-icon"
-      on:click={toggleLock}
-      src={isLocked ? 'icons/locked.png' : 'icons/unlocked.png'}
-    />
+    <button on:click={toggleLock}>
+      <img
+        alt="lock"
+        class="lock-icon"
+        src={isLocked ? "icons/locked.png" : "icons/unlocked.png"}
+      />
+    </button>
     <b>Your code</b>
     <input type="text" bind:value={id} readonly={isLocked} />
     <small>
-      <!-- svelte-ignore a11y-invalid-attribute -->
-      <a class="regen" href="#" on:click={regenerateCode}>Regenerate code</a>
+      <button class="regen" on:click={regenerateCode}>Regenerate code</button>
     </small>
     <img
       class="itsy-bitsy-spinner"
@@ -80,7 +85,7 @@
     border: 2px;
     border-color: rgb(0, 0, 0);
     background-color: rgb(249, 249, 249);
-    font-family: 'Lato';
+    font-family: "Lato";
     font-size: 0.8em;
   }
 
@@ -98,11 +103,17 @@
     height: 1em;
   }
 
-  .regen {
+  button {
+    all: unset;
     color: rgb(0, 0, 0);
+    cursor: pointer;
   }
 
-  input[type='text'] {
+  .regen:hover {
+    text-decoration: underline;
+  }
+
+  input[type="text"] {
     font-size: 1em;
     width: 380px;
   }
