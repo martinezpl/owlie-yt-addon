@@ -64,16 +64,18 @@
     <br />
     <br />
     <p>
-      In order to receive gifts, paste your code into the donation message.<br
-      />
-      Make sure it's set as <b>private</b> =)
+      In order to receive question allowance, paste your code into the donation
+      message. <br />This way you're contributing to running expenses so the
+      received allowance will be proportional to the donation.<br />
+      In such case make sure the donation is set as <b>private</b> =)
     </p>
-    <iframe
-      id="kofiframe"
-      src="https://ko-fi.com/owliext/?hidefeed=true&widget=true&embed=true&preview=true"
-      height="400"
-      title="owliext"
-    />
+    <a href="https://ko-fi.com/N4N4I82JJ" target="_blank" rel="noreferrer"
+      ><img
+        class="support-button"
+        src="icons/owlie-support.png"
+        alt="Support Owlie"
+      /></a
+    >
   </div>
 </main>
 
@@ -96,6 +98,14 @@
     background: #f9f9f9;
   }
 
+  .support-button {
+    border: 0px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+  }
+
   .lock-icon {
     cursor: pointer;
     display: inline-block;
@@ -107,6 +117,13 @@
     all: unset;
     color: rgb(0, 0, 0);
     cursor: pointer;
+  }
+
+  .regen {
+    color: rgb(167, 165, 165);
+    position: absolute;
+    top: 52px;
+    right: 15px;
   }
 
   .regen:hover {
