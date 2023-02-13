@@ -21,7 +21,6 @@
   },
 
   "permissions": [
-    "webRequest",
     "storage",
     "https://owlie.essa.lol/"
   ],
