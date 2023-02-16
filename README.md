@@ -2,9 +2,11 @@
 
 
 
-Owlie is a browser extension that generates video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc.
+Owlie is a browser extension that generates video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc. As well as timestamp-linked transcript and keyword search.
 
 ## Local installation
+
+Having built the extension locally, you won't be authorised to use the production backend. We're working on providing a localhost backend for local development.
 
 1. Clone this repository.
 2. `cd owlie-yt-addon`
