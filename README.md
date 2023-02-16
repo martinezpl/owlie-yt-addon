@@ -2,7 +2,12 @@
 
 
 
-Owlie is a browser extension that generates video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc. As well as timestamp-linked transcript and keyword search.
+Owlie is a browser extension that generates YT video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc. as well as answering any questions/requests and generating timestamp-linked transcript allowing keyword search (TBI as a separate feature).
+
+[Chrome Installation
+](https://chrome.google.com/webstore/detail/owlie-youtube-assistant/bfgonahdcbgiamjgenobcjbngblgidjg)
+
+[Firefox Installation](https://addons.mozilla.org/es/firefox/addon/owlie-youtube-assistant/)
 
 ## Local installation
 
