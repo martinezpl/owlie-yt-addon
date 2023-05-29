@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { initSocket, closeSocket } from "../../stores/socketStore";
   import { isChatVisible } from "../../stores/chatStore";
   import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
   import browser from "webextension-polyfill";
@@ -29,7 +30,16 @@
 </script>
 
 {#if $isToggleVisible}
-  <button on:click={() => ($isChatVisible = !$isChatVisible)}>
+  <button
+    on:click={() => {
+      $isChatVisible = !$isChatVisible;
+      if ($isChatVisible) {
+        initSocket();
+      } else {
+        closeSocket();
+      }
+    }}
+  >
     <img
       src={owlyStateImgs[$owlyCurrentState]}
       alt={owlyStateImgs[$owlyCurrentState]}

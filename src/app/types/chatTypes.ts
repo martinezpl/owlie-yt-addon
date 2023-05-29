@@ -1,5 +1,5 @@
 interface MessageBase {
-  speaker?: 'user' | 'backend';
+  speaker?: "user" | "backend";
 }
 
 export type TranscriptNode = {
@@ -9,17 +9,17 @@ export type TranscriptNode = {
 
 interface TranscriptMessage extends MessageBase {
   transcript: Array<TranscriptNode>;
-  type: 'transcript';
+  type: "transcript";
 }
 
-interface TextMessage extends MessageBase {
+export interface TextMessage extends MessageBase {
   text: string;
-  type: 'text';
+  type: "text";
 }
 
 interface ErrorMessage extends MessageBase {
   text: string;
-  type: 'error';
+  type: "error";
 }
 
 export type Message = TranscriptMessage | TextMessage | ErrorMessage;
