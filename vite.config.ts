@@ -40,6 +40,10 @@ export default defineConfig({
           from: '"__GET_HASH__"',
           to: process.env.VITE_OWLIE_GET_HASH || "",
         },
+        {
+          from: '"__SOCKET_ADDRESS__"',
+          to: process.env.VITE_OWLIE_SOCKET_ADDRESS || "",
+        },
       ],
     }),
   ],
