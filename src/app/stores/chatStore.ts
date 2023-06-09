@@ -9,7 +9,7 @@ export const addMessage = (msg: Message) => {
   conversationHistory.set([...get(conversationHistory), msg]);
 };
 
-export const expandMessage = (msg: TextMessage) => {
+export const expandMessage = (msg: string) => {
   let history = get(conversationHistory);
   (history[history.length - 1] as TextMessage).text += msg;
   conversationHistory.set(history);

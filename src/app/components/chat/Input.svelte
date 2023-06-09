@@ -1,6 +1,7 @@
 <script lang="ts">
   import { userInput } from "../../stores/chatStore";
   import { owlyCurrentState } from "../../stores/toggleStore";
+  import { initSocket } from "../../stores/socketStore";
 
   import { askQuestion } from "../../utils/api";
 
@@ -11,9 +12,11 @@
     if (e.code === "Enter") {
       // send to the server
       $owlyCurrentState = "loading";
-      void askQuestion($userInput)
-        .then(() => ($owlyCurrentState = "ready"))
-        .catch(() => ($owlyCurrentState = "error"));
+      initSocket().then(
+        void askQuestion($userInput)
+          .then(() => ($owlyCurrentState = "ready"))
+          .catch(() => ($owlyCurrentState = "error"))
+      );
       $userInput = "";
     }
   };

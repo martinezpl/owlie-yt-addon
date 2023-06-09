@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { initSocket, closeSocket } from "../../stores/socketStore";
-  import { isChatVisible } from "../../stores/chatStore";
+  import { isChatVisible, conversationHistory } from "../../stores/chatStore";
   import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
+  import { initHelp } from "../../utils/api";
   import browser from "webextension-polyfill";
 
   const imgSrcBase = "icons/icon-1-";
@@ -13,6 +13,11 @@
     loading: browser.runtime.getURL(imgSrcBase + "loading.gif"),
   };
 
+  if ($conversationHistory.length == 0) {
+    initHelp().then((msg) => {
+      $conversationHistory.push(msg);
+    });
+  }
   const observer = new MutationObserver(() => {
     if (document.fullscreenElement) {
       $isChatVisible = false;
@@ -33,11 +38,6 @@
   <button
     on:click={() => {
       $isChatVisible = !$isChatVisible;
-      if ($isChatVisible) {
-        initSocket();
-      } else {
-        closeSocket();
-      }
     }}
   >
     <img

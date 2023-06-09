@@ -3,7 +3,8 @@
 export async function callAPI(
   path: string,
   id?: string,
-  body?: BodyInit
+  body?: BodyInit,
+  method: string = "POST"
 ): Promise<Response> {
   let params: RequestInit = {
     mode: "cors",
@@ -13,7 +14,7 @@ export async function callAPI(
   };
   if (body) {
     params.body = body;
-    params.method = "POST";
   }
+  params.method = method;
   return fetch("__API_BASE__" + path, params);
 }
