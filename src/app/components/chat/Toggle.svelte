@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isChatVisible, conversationHistory } from "../../stores/chatStore";
-  import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
+  import { owlieCurrentState, isToggleVisible } from "../../stores/toggleStore";
   import { initHelp } from "../../utils/api";
   import browser from "webextension-polyfill";
 
@@ -41,8 +41,8 @@
     }}
   >
     <img
-      src={owlyStateImgs[$owlyCurrentState]}
-      alt={owlyStateImgs[$owlyCurrentState]}
+      src={owlyStateImgs[$owlieCurrentState]}
+      alt={owlyStateImgs[$owlieCurrentState]}
     />
   </button>
 {/if}

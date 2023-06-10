@@ -1,6 +1,6 @@
 import type { Message } from "../types/chatTypes";
 import { addMessage, expandMessage } from "../stores/chatStore";
-import { getSocket } from "../stores/socketStore";
+import { getSocket, initSocket } from "../stores/socketStore";
 import { callAPI } from "../../shared/api";
 
 export const sendToServer = async (userInput: string) => {
@@ -10,6 +10,7 @@ export const sendToServer = async (userInput: string) => {
     speaker: "user",
   };
   addMessage(userMessage);
+  initSocket();
 
   let splitHtml = ["", ""];
   let title = "";
