@@ -32,7 +32,7 @@
     const lastMsg = $conversationHistory[$conversationHistory.length - 1];
     if (autoscrollEnabled) {
       if (lastMsg && lastMsg.type === "transcript") {
-        msgsContainer.scrollTop = msgsContainer.clientHeight;
+        msgsContainer.scrollTop += 150;
       } else {
         msgsContainer.scrollTop = msgsContainer.scrollHeight;
       }

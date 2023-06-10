@@ -33,14 +33,6 @@ export default defineConfig({
           to: process.env.VITE_OWLIE_API_BASE || "http://localhost:8080",
         },
         {
-          from: '"__HASH_FUNCTION__"',
-          to: process.env.VITE_OWLIE_HASH_FUNCTION || "",
-        },
-        {
-          from: '"__GET_HASH__"',
-          to: process.env.VITE_OWLIE_GET_HASH || "",
-        },
-        {
           from: '"__SOCKET_ADDRESS__"',
           to: process.env.VITE_OWLIE_SOCKET_ADDRESS || "",
         },

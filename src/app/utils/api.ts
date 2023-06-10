@@ -3,9 +3,9 @@ import { addMessage, expandMessage } from "../stores/chatStore";
 import { getSocket } from "../stores/socketStore";
 import { callAPI } from "../../shared/api";
 
-export const askQuestion = async (question: string) => {
+export const sendToServer = async (userInput: string) => {
   const userMessage: Message = {
-    text: question,
+    text: userInput,
     type: "text",
     speaker: "user",
   };
@@ -28,17 +28,21 @@ export const askQuestion = async (question: string) => {
       return;
     }
   }
-  getSocket().send(
+  const socket = getSocket();
+  while (socket.readyState !== socket.OPEN) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  socket.send(
     JSON.stringify({
       url: location.href,
-      question: question.replace("\n", ""),
+      question: userInput.replace("\n", ""),
       title: title,
       captions: splitHtml[1].split(',"videoDetails')[0].replace("\n", ""),
     })
   );
 
-  if (question.startsWith("/f") || question.startsWith("/t")) {
-    getSocket().onmessage = async (event) => {
+  if (userInput.startsWith("/f") || userInput.startsWith("/t")) {
+    socket.onmessage = async (event) => {
       const msg = JSON.parse(event.data);
       msg["speaker"] = "backend";
       addMessage(msg);
@@ -49,14 +53,14 @@ export const askQuestion = async (question: string) => {
       type: "text",
       speaker: "backend",
     });
-    getSocket().onmessage = async (event) => {
+    socket.onmessage = async (event) => {
       expandMessage(event.data);
     };
   }
 };
 
 export const initHelp = async () => {
-  const response = await callAPI("/help", null, null, "GET");
+  const response = await callAPI("/help", null, "GET");
 
   let msg = (await response.json()) as Message;
   msg.speaker = "backend";

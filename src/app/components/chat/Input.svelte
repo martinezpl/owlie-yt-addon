@@ -3,7 +3,7 @@
   import { owlyCurrentState } from "../../stores/toggleStore";
   import { initSocket } from "../../stores/socketStore";
 
-  import { askQuestion } from "../../utils/api";
+  import { sendToServer } from "../../utils/api";
 
   const placeholder =
     "Ask a question within video's context or write /help to see available commands";
@@ -13,9 +13,12 @@
       // send to the server
       $owlyCurrentState = "loading";
       initSocket().then(
-        void askQuestion($userInput)
+        void sendToServer($userInput)
           .then(() => ($owlyCurrentState = "ready"))
-          .catch(() => ($owlyCurrentState = "error"))
+          .catch((err) => {
+            console.log(err);
+            $owlyCurrentState = "error";
+          })
       );
       $userInput = "";
     }
