@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { userInput } from "../../stores/chatStore";
+  import { userInput, traverseInputHistory } from "../../stores/chatStore";
   import { owlyCurrentState } from "../../stores/toggleStore";
   import { initSocket } from "../../stores/socketStore";
 
@@ -21,10 +21,23 @@
     }
   };
 
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.code === "ArrowUp") {
+      $userInput = traverseInputHistory("previous");
+    } else if (e.code === "ArrowDown") {
+      $userInput = traverseInputHistory("next");
+    }
+  };
+
   $: $userInput === "\n" && ($userInput = "");
 </script>
 
-<textarea {placeholder} bind:value={$userInput} on:keypress={handleKeypress} />
+<textarea
+  {placeholder}
+  bind:value={$userInput}
+  on:keypress={handleKeypress}
+  on:keydown={handleKeydown}
+/>
 
 <style>
   textarea {

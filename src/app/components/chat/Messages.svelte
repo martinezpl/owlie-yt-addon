@@ -9,13 +9,15 @@
   let autoscrollEnabled = true;
 
   onMount(() => {
-    msgsContainer.addEventListener("scroll", handleScroll);
-    setTimeout(() => (msgsContainer.style.scrollBehavior = "smooth"), 50);
+    setTimeout(() => {
+      msgsContainer.addEventListener("scroll", handleScroll);
+      msgsContainer.style.scrollBehavior = "smooth";
+    }, 1000);
   });
 
   function handleScroll() {
     if (
-      msgsContainer.scrollTop + msgsContainer.clientHeight + 10 >=
+      msgsContainer.scrollTop + msgsContainer.clientHeight + 15 >=
       msgsContainer.scrollHeight
     ) {
       // User scrolled to the bottom
@@ -27,8 +29,13 @@
   }
 
   afterUpdate(() => {
+    const lastMsg = $conversationHistory[$conversationHistory.length - 1];
     if (autoscrollEnabled) {
-      msgsContainer.scrollTop = msgsContainer.scrollHeight;
+      if (lastMsg && lastMsg.type === "transcript") {
+        msgsContainer.scrollTop = msgsContainer.clientHeight;
+      } else {
+        msgsContainer.scrollTop = msgsContainer.scrollHeight;
+      }
     }
   });
 </script>
