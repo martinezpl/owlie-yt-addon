@@ -11,6 +11,7 @@ export const addMessage = (msg: Message) => {
   conversationHistory.set([...get(conversationHistory), msg]);
   if (msg.speaker === "user" && msg.type === "text") {
     userInputHistory.set([...get(userInputHistory), msg.text]);
+    userInputHistoryTraversalIndex.set(-1);
   }
 };
 
