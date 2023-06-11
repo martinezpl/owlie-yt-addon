@@ -47,6 +47,8 @@
         {msg.text
           .replace(/&amp;#39;/g, "'")
           .replace(/&amp;quot;/g, '"')
+          .replace(/&amp;gt;/g, ">")
+          .replace(/&amp;lt;/g, "<");
           .replace(/\n/g, "\r\n")}
       {:else if msg.type === "transcript"}
         <Transcript transcript={msg.transcript} />
