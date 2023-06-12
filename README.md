@@ -2,7 +2,11 @@
 
 
 
-Owlie is a browser extension that generates YT video summaries and descriptive works in general, e.g. comments, counter-arguments, poetry etc. as well as answering any questions/requests and generating timestamp-linked transcript allowing keyword search (TBI as a separate feature).
+Owlie is an AI-powered browser extension that serves as a knowledge extraction tool for Youtube videos. It allows the user to interact with the content of videos through following features:
+- asking questions / giving instructions in relation to the video
+- summarizing videos
+- extracting transcript, where clicking a sentence jumps to the timestamp it's spoken
+- finding keywords / phrases within video's content
 
 [Chrome Installation
 ](https://chrome.google.com/webstore/detail/owlie-youtube-assistant/bfgonahdcbgiamjgenobcjbngblgidjg)
@@ -15,10 +19,17 @@ Having built the extension locally, you won't be authorised to use the productio
 
 1. Clone this repository.
 2. `cd owlie-yt-addon`
-3. install dependencies `pnpm install`
-4. build the extension `pnpm build:all`. The `dist` directory will contain the extension's bundle.
-5. Add your desired manifest to the `dist` directory. For example `cp manifest/v2/manifest.json dist/manifest.json`
+3. install dependencies `npm i`
+4. Export following env variables:
 
+```
+export VITE_OWLIE_API_BASE="https://owlie.essa.lol"
+export VITE_OWLIE_SOCKET_ADDRESS='"wss://qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"'
+```
+
+5. build the extension `npm run build:all`. The `dist` directory will contain the extension's bundle.
+6. Copy manifest to the `dist` directory. v3 for chrome-based browsers, v2 for everything else (e.g. firefox)
+7. Load up the extension in the browser.
 
 ### Firefox
 
@@ -33,24 +44,14 @@ Having built the extension locally, you won't be authorised to use the productio
 
 ## How to use
 
+https://www.youtube.com/watch?v=q16GOxwqvVY
+
 When visiting a Youtube's page you'll see Owlie's icon in the bottom right corner of the page. Click it to open the chat. Write `/help` to see available commands or simply ask a question about the video or tell it to do something fun.
 
 Keep in mind that the answers accord to the video's content.
-
-
-https://user-images.githubusercontent.com/64603095/213948302-bef8d776-051c-4879-9dc3-dd989e8c11eb.mov
-
 
 ## Local development
 
 1. npm install --global web-ext
 2. copy your desired manifest from the `manifest` directory into `dist`. Example: `cp manifest/v2/manifest.json dist/`
-3. `pnpm run dev`. 
-
-## Known issues, things to improve
-
-### GPT3's context limit of 4097 tokens
-
-This limit makes it impossible to summarize videos that contain more than ~3000 words (from my observations, videos longer than ~15-20 minutes).
-
-A workaround I have in mind is splitting the transcript, generating multiple summaries from the splits and then summarising the summaries at the end.
+3. `npm run dev`. 
