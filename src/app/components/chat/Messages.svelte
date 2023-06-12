@@ -11,13 +11,12 @@
   onMount(() => {
     setTimeout(() => {
       msgsContainer.addEventListener("scroll", handleScroll);
-      msgsContainer.style.scrollBehavior = "smooth";
     }, 1000);
   });
 
   function handleScroll() {
     if (
-      msgsContainer.scrollTop + msgsContainer.clientHeight + 15 >=
+      msgsContainer.scrollTop + msgsContainer.clientHeight + 10 >=
       msgsContainer.scrollHeight
     ) {
       // User scrolled to the bottom
@@ -30,7 +29,8 @@
 
   afterUpdate(() => {
     const lastMsg = $conversationHistory[$conversationHistory.length - 1];
-    if (autoscrollEnabled) {
+
+    if (autoscrollEnabled || (lastMsg && lastMsg.speaker === "user")) {
       if (lastMsg && lastMsg.type === "transcript") {
         msgsContainer.scrollTop += 150;
       } else {
@@ -45,11 +45,16 @@
     <div class="msg {msg.speaker} {msg.type}">
       {#if msg.type === "text" || msg.type === "error"}
         {msg.text
+          .replace(/<.+?>/g, " ")
           .replace(/&amp;#39;/g, "'")
+          .replace(/\/\/n/g, "'")
           .replace(/&amp;quot;/g, '"')
           .replace(/&amp;gt;/g, ">")
           .replace(/&amp;lt;/g, "<")
-          .replace(/\n/g, "\r\n")}
+          .replace(/\n/g, "\r\n")
+          .replace(/  /g, " ")
+          .replace(/&amp;nbsp/g, " ")
+          .replace(/&amp;amp;/g, "&")}
       {:else if msg.type === "transcript"}
         <Transcript transcript={msg.transcript} />
       {/if}
