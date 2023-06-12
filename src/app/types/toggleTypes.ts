@@ -1,1 +1,1 @@
-export type OwlyState = "ready" | "loading" | "error" | "steady";
+export type OwlieState = "ready" | "loading" | "error" | "steady";

@@ -9,10 +9,19 @@
 {#each transcript as { text, dataStart }, i}
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <span on:click={() => updateVideoTime(dataStart)}>
-    {text.replace(/&amp;#39;/g, "'").replace(/&amp;quot;/g, '"')}
+    {text
+      .replace(/<.+?>/g, " ")
+      .replace(/&amp;#39;/g, "'")
+      .replace(/\/\/n/g, "'")
+      .replace(/&amp;quot;/g, '"')
+      .replace(/  /g, " ")
+      .replace(/&amp;gt/g, ">")
+      .replace(/&amp;lt/g, "<")
+      .replace(/&amp;nbsp/g, " ")
+      .replace(/&amp;amp;/g, "&")}
   </span>
   {#if i % 40 === 0}
-    <br><br>
+    <br /><br />
   {/if}
 {/each}
 

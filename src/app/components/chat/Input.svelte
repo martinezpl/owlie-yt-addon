@@ -1,27 +1,40 @@
 <script lang="ts">
-  import { userInput } from "../../stores/chatStore";
-  import { owlyCurrentState } from "../../stores/toggleStore";
+  import { userInput, traverseInputHistory } from "../../stores/chatStore";
+  import { owlieCurrentState, setOwlieState } from "../../stores/toggleStore";
 
-  import { askQuestion } from "../../utils/api";
+  import { sendToServer } from "../../utils/api";
 
   const placeholder =
     "Ask a question within video's context or write /help to see available commands";
 
   const handleKeypress = (e: KeyboardEvent) => {
-    if (e.code === "Enter") {
-      // send to the server
-      $owlyCurrentState = "loading";
-      void askQuestion($userInput)
-        .then(() => ($owlyCurrentState = "ready"))
-        .catch(() => ($owlyCurrentState = "error"));
+    if (e.code === "Enter" && $userInput !== "") {
+      if ($owlieCurrentState === "loading") {
+        return;
+      }
+      setOwlieState("loading");
+      void sendToServer($userInput);
       $userInput = "";
+    }
+  };
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.code === "ArrowUp") {
+      $userInput = traverseInputHistory("previous");
+    } else if (e.code === "ArrowDown") {
+      $userInput = traverseInputHistory("next");
     }
   };
 
   $: $userInput === "\n" && ($userInput = "");
 </script>
 
-<textarea {placeholder} bind:value={$userInput} on:keypress={handleKeypress} />
+<textarea
+  {placeholder}
+  bind:value={$userInput}
+  on:keypress={handleKeypress}
+  on:keydown={handleKeydown}
+/>
 
 <style>
   textarea {

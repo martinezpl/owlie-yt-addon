@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { isChatVisible } from "../../stores/chatStore";
-  import { owlyCurrentState, isToggleVisible } from "../../stores/toggleStore";
+  import { isChatVisible, conversationHistory } from "../../stores/chatStore";
+  import { owlieCurrentState, isToggleVisible } from "../../stores/toggleStore";
+  import { initHelp } from "../../utils/api";
   import browser from "webextension-polyfill";
 
   const imgSrcBase = "icons/icon-1-";
@@ -12,6 +13,11 @@
     loading: browser.runtime.getURL(imgSrcBase + "loading.gif"),
   };
 
+  if ($conversationHistory.length == 0) {
+    initHelp().then((msg) => {
+      $conversationHistory.push(msg);
+    });
+  }
   const observer = new MutationObserver(() => {
     if (document.fullscreenElement) {
       $isChatVisible = false;
@@ -29,10 +35,14 @@
 </script>
 
 {#if $isToggleVisible}
-  <button on:click={() => ($isChatVisible = !$isChatVisible)}>
+  <button
+    on:click={() => {
+      $isChatVisible = !$isChatVisible;
+    }}
+  >
     <img
-      src={owlyStateImgs[$owlyCurrentState]}
-      alt={owlyStateImgs[$owlyCurrentState]}
+      src={owlyStateImgs[$owlieCurrentState]}
+      alt={owlyStateImgs[$owlieCurrentState]}
     />
   </button>
 {/if}
