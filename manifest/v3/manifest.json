@@ -15,7 +15,7 @@
 
   "action": {
     "default_icon": {
-      "64": "icons/icon-1.png" 
+      "64": "icons/icon-1.png"
     },
     "default_tile": "Dashboard",
     "default_popup": "popup.html"
@@ -35,7 +35,8 @@
   },
 
   "host_permissions": [
-    "https://owlie.essa.lol/"
+    "https://owlie.essa.lol/",
+    "wss://qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"
   ],
   "permissions": ["storage"]
 }
