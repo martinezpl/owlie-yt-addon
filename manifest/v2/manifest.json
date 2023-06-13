@@ -23,7 +23,7 @@
   "permissions": [
     "storage",
     "https://owlie.essa.lol/",
-    "wss://qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"
+    "qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"
   ],
 
   "background": {

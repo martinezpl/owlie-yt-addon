@@ -1,7 +1,6 @@
 # ![icon-1](https://user-images.githubusercontent.com/64603095/216782866-7c19a5bc-ade7-41ee-ab51-f8399684c8b9.png) Owlie - smart Youtube assistant
 
 
-
 Owlie is an AI-powered browser extension that serves as a knowledge extraction tool for Youtube videos. It allows the user to interact with the content of videos through following features:
 - asking questions / giving instructions in relation to the video
 - summarizing videos
