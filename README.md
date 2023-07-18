@@ -14,8 +14,6 @@ Owlie is an AI-powered browser extension that serves as a knowledge extraction t
 
 ## Local installation
 
-Having built the extension locally, you won't be authorised to use the production backend. We're working on providing a localhost backend for local development.
-
 1. Clone this repository.
 2. `cd owlie-yt-addon`
 3. install dependencies `npm i`
