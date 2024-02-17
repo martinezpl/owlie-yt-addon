@@ -1,5 +1,9 @@
 import type { Message } from "../types/chatTypes";
-import { addMessage, expandMessage } from "../stores/chatStore";
+import {
+  addMessage,
+  expandMessage,
+  changeLastMessageType,
+} from "../stores/chatStore";
 import { getSocket, initSocket } from "../stores/socketStore";
 import { callAPI } from "../../shared/api";
 
@@ -42,20 +46,25 @@ export const sendToServer = async (userInput: string) => {
     })
   );
 
-  if (userInput.startsWith("/f") || userInput.startsWith("/t")) {
-    socket.onmessage = async (event) => {
-      const msg = JSON.parse(event.data);
-      msg["speaker"] = "backend";
-      addMessage(msg);
-    };
-  } else {
+  if (userInput === "/s" || !userInput.startsWith("/")) {
     addMessage({
       text: "",
       type: "text",
       speaker: "backend",
     });
     socket.onmessage = async (event) => {
+      if (event.data.includes('"type":')) {
+        changeLastMessageType("error");
+        expandMessage(JSON.parse(event.data).text);
+        return;
+      }
       expandMessage(event.data);
+    };
+  } else {
+    socket.onmessage = async (event) => {
+      const msg = JSON.parse(event.data);
+      msg["speaker"] = "backend";
+      addMessage(msg);
     };
   }
 };

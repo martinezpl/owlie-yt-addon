@@ -21,6 +21,14 @@ export const expandMessage = (msg: string) => {
   conversationHistory.set(history);
 };
 
+export const changeLastMessageType = (
+  type: "text" | "error" | "transcript"
+) => {
+  let history = get(conversationHistory);
+  (history[history.length - 1] as Message).type = type;
+  conversationHistory.set(history);
+};
+
 export const traverseInputHistory = (direction: "previous" | "next") => {
   const history = get(userInputHistory);
   const index = get(userInputHistoryTraversalIndex);
