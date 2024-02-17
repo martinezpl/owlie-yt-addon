@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Owlie Youtube assistant",
-  "version": "1.0",
+  "version": "2.0",
   "author": "owliext@gmail.com",
 
   "content_scripts": [
@@ -14,22 +14,16 @@
 
   "web_accessible_resources": ["app.html", "icons/*"],
 
-  "description": "Summarize, extract transcript and have fun with the content of Youtube videos. Based on GPT3.5",
+  "description": "Interact with YouTube videos through AI: ask questions, summarize and search for keywords spoken in the video.",
 
   "icons": {
     "64": "icons/icon-1.png"
   },
 
   "permissions": [
-    "storage",
     "https://owlie.essa.lol/",
-    "qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"
+    "wss://qdfxsg29c0.execute-api.eu-west-1.amazonaws.com/production"
   ],
-
-  "background": {
-    "scripts": ["background/background.js"],
-    "persistent": false
-  },
 
   "browser_action": {
     "default_icon": "icons/icon-1.png",
