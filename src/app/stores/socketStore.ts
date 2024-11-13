@@ -9,7 +9,7 @@ export const initSocket = (): void => {
     return;
   }
 
-  const webSocket = new WebSocket("__SOCKET_ADDRESS__");
+  const webSocket = new WebSocket(import.meta.env.VITE_OWLIE_SOCKET_ADDRESS);
 
   webSocket.onclose = () => {
     setOwlieState("steady");

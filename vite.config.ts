@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { replaceCodePlugin } from "vite-plugin-replace";
 import { config as configDotenv } from "dotenv";
 import { resolve } from "path";
 
@@ -26,18 +25,6 @@ export default defineConfig({
   plugins: [
     // Only use svelte if not a library
     !isLibrary && svelte(),
-    replaceCodePlugin({
-      replacements: [
-        {
-          from: "__API_BASE__",
-          to: process.env.VITE_OWLIE_API_BASE || "http://localhost:8080",
-        },
-        {
-          from: '"__SOCKET_ADDRESS__"',
-          to: process.env.VITE_OWLIE_SOCKET_ADDRESS || "",
-        },
-      ],
-    }),
   ],
   build: {
     lib: isLibrary && {

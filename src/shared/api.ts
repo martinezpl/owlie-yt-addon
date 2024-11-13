@@ -12,5 +12,8 @@ export async function callAPI(
     params.body = body;
   }
   params.method = method;
-  return fetch("__API_BASE__" + path, params);
+  return fetch(
+    (import.meta.env.VITE_OWLIE_API_BASE || "http://localhost:8080") + path,
+    params
+  );
 }
