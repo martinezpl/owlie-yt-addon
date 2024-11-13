@@ -4,8 +4,7 @@ import {
   expandMessage,
   changeLastMessageType,
 } from "../stores/chatStore";
-import { getSocket, initSocket } from "../stores/socketStore";
-import { callAPI } from "../../shared/api";
+import { getSocket, maybeInitSocket } from "../stores/socketStore";
 
 export const sendToServer = async (userInput: string) => {
   const userMessage: Message = {
@@ -14,7 +13,7 @@ export const sendToServer = async (userInput: string) => {
     speaker: "user",
   };
   addMessage(userMessage);
-  initSocket();
+  maybeInitSocket();
 
   let splitHtml = ["", ""];
   let title = "";
@@ -27,7 +26,7 @@ export const sendToServer = async (userInput: string) => {
     if (splitHtml.length <= 1) {
       addMessage({
         text: "There's no transcription available for this video.",
-        type: "text",
+        type: "error",
         speaker: "backend",
       });
       return;
@@ -53,6 +52,7 @@ export const sendToServer = async (userInput: string) => {
       speaker: "backend",
     });
     socket.onmessage = async (event) => {
+      // Response messages to /s or a question are word by word. If a message is a JSON it means there's been an error
       if (event.data.includes('"type":')) {
         changeLastMessageType("error");
         expandMessage(JSON.parse(event.data).text);
@@ -69,10 +69,31 @@ export const sendToServer = async (userInput: string) => {
   }
 };
 
-export const initHelp = async () => {
-  const response = await callAPI("/help", null, "GET");
+const examples = [
+  "Write me a poem about it.",
+  "Disagree with the speaker.",
+  "Explain it to me like I'm 5 years old.",
+  "Turn it into a funny story.",
+  "Mock the speaker.",
+];
 
-  let msg = (await response.json()) as Message;
-  msg.speaker = "backend";
-  return msg;
+export const initHelp = () => {
+  addMessage({
+    type: "text",
+    speaker: "backend",
+    text: `Commands:
+    - /s : summarize the video's content
+    - /t : extract transcription; click on a sentence to jump to the moment it's spoken
+    - /f : find a word or a phrase, e.g. "/f open source"
+    - /h : see this message
+
+    You can optionally add a language code to target a specific language, e.g. "/t es", "/s pl", etc..
+
+    If the transcript for the language is not available I will default to English or the only existing transcript.
+
+    You can also simply ask a question or tell me what to do with the video's content. For example: "${
+      examples[Math.floor(Math.random() * 5)]
+    }"
+    `,
+  });
 };

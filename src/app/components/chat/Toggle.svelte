@@ -14,9 +14,7 @@
   };
 
   if ($conversationHistory.length == 0) {
-    initHelp().then((msg) => {
-      $conversationHistory.push(msg);
-    });
+    initHelp();
   }
   const observer = new MutationObserver(() => {
     if (document.fullscreenElement) {

@@ -3,6 +3,7 @@ export async function callAPI(
   body?: BodyInit,
   method: string = "POST"
 ): Promise<Response> {
+  // DEPRECATED
   let params: RequestInit = {
     mode: "cors",
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
